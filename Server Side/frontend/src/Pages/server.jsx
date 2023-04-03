@@ -70,6 +70,12 @@ function Server() {
             setTotalAmount(newTotalAmount);
         },[cart])
 
+        // removes all items in cart
+        const removeAllProductsFromCart = async() => {
+            setCart([]);
+            setTotalAmount(0);
+        }
+
         // test function to print
         useEffect(() => {
             console.log(products);
@@ -127,7 +133,7 @@ function Server() {
                                 </td>
                             </tr>)
                             : 'No Item in Cart' }
-                            <button className='btn btn-danger btn-lg'>Cancel</button>
+                            <button className='btn btn-danger btn-lg' onClick={removeAllProductsFromCart}>Cancel</button>
                             <button className='btn btn-success btn-lg'>Confirm</button>
                         </tbody>
                     </table>
