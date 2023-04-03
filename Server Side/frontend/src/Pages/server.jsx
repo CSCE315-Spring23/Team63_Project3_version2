@@ -9,6 +9,7 @@ function Server() {
         const [cart, setCart] = useState([]);
         const [products, setProducts] = useState([]);
         const [isLoading, setIsLoading] = useState(false);
+        const [totalAmount, setTotalAmount] = useState(0);
 
         // fetchProduct is an async function that shows if items are loading in (test function) but also loads in data from products 
         const fetchProduct = async() => {
@@ -59,75 +60,83 @@ function Server() {
             fetchProduct();
         },[]);
 
+        // keeps track of total amount
+        useEffect(() => {
+            let newTotalAmount = 0;
+            cart.forEach(icart => {
+                const total = parseFloat(icart.totalAmount);
+                newTotalAmount += parseFloat(total.toFixed(2));
+            })
+            setTotalAmount(newTotalAmount);
+        },[cart])
+
         // test function to print
         useEffect(() => {
             console.log(products);
         } ,[products]);
 
-return (
-    <mainlayout>
-      <div className='row'>
-        <header>
-            <nav className='navbar navbar-light bg-primary'>
-                <div className='conainer'>
-                    <td style={{fontSize: 50}}>Server</td>
-                </div>
-            </nav>
+    return (
+        <mainlayout>
+        <div className='row'>
+            <header>
+                <nav className='navbar navbar-light bg-primary'>
+                    <div className='conainer'>
+                        <td style={{fontSize: 50}}>Server</td>
+                    </div>
+                </nav>
 
-        </header>
-        <td style={{fontSize: 50}}>Entrees\Drinks</td>
-        <div className='col-lg-8'>
-          {isLoading ? 'Loading' : <div className='row'>
-              {products.map((product, key) =>
-                <div key={key} className='col-lg-4 mb-4'>
-                    <button onClick={()=>addProductToCart(product)}>
-                      <p>{product.name}</p>
-                      <p>${product.price}</p>
-                      </button>
-                </div>
-              )}
-            </div>}
-        </div>
+            </header>
+            <td style={{fontSize: 50}}>Entrees\Drinks</td>
+            <div className='col-lg-8'>
+            {isLoading ? 'Loading' : <div className='row'>
+                {products.map((product, key) =>
+                    <div key={key} className='col-lg-4 mb-4'>
+                        <button onClick={()=>addProductToCart(product)}>
+                        <p>{product.name}</p>
+                        <p>${product.price}</p>
+                        </button>
+                    </div>
+                )}
+                </div>}
+            </div>
 
-        <div className='col-lg-4 mb-4'>
-            <div className='table-responsive bg-dark'>
-                <table className='table table-responsive table-dark table-hover'>
-                    <thead>
-                        <td style={{ fontSize: 25}}>Order Details:</td>
-                        <tr>
-                            <td>#</td>
-                            <td>Name</td>
-                            <td>Price</td>
-                            <td>Qty</td>
-                            <td>Total</td>
-                            <td>Action</td>
+            <div className='col-lg-4 mb-4'>
+                <div className='table-responsive bg-dark'>
+                    <table className='table table-responsive table-dark table-hover'>
+                        <thead>
+                            <td style={{ fontSize: 25}}>Order Details:</td>
+                            <tr>
+                                <td>#</td>
+                                <td>Name</td>
+                                <td>Price</td>
+                                <td>Qty</td>
+                                <td>Total</td>
+                                <td>Action</td>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { cart ? cart.map((cartProduct, key) => <tr>
-                            <td>{cartProduct.id}</td>
-                            <td>{cartProduct.name}</td>
-                            <td>{cartProduct.price}</td>
-                            <td>{cartProduct.quantity}</td>
-                            <td>{cartProduct.totalAmount}</td>
-                            <td>
-                                <button className='btn btn-danger btn-sm'>Remove</button>
-                            </td>
-                        </tr>)
-                        : 'No Item in Cart' }
-                        <td>Order Total: $0.00</td>
-                        <button className='btn btn-danger btn-lg'>Cancel</button>
-                        <button className='btn btn-success btn-lg'>Confirm</button>
-                    </tbody>
-                </table>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { cart ? cart.map((cartProduct, key) => <tr>
+                                <td>{cartProduct.id}</td>
+                                <td>{cartProduct.name}</td>
+                                <td>{cartProduct.price}</td>
+                                <td>{cartProduct.quantity}</td>
+                                <td>{cartProduct.totalAmount}</td>
+                                <td>
+                                    <button className='btn btn-danger btn-sm'>Remove</button>
+                                </td>
+                            </tr>)
+                            : 'No Item in Cart' }
+                            <button className='btn btn-danger btn-lg'>Cancel</button>
+                            <button className='btn btn-success btn-lg'>Confirm</button>
+                        </tbody>
+                    </table>
+                    <h2 className='px-2 text-white'>Total Amount: {totalAmount}</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-    </mainlayout>
-    
-    
-)
+        </mainlayout>
+    )
 }
 
 export default Server
