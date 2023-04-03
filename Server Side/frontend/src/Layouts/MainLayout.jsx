@@ -1,23 +1,23 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-function mainlayout({children}) {
+function MainLayout({children}) {
   return (
-    <div>
-    <header>
-      <nav className="navbar navbar-light bg-primary">
-        <div className="container">
-          <Link to="/" className="navbar-brand">DevPOS</Link>
+    <div style={{backgroundColor: '#9fb0a8'}}>
+      <header>
+        <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor: '#65706b', fontFamily: 'Poppins'}}>
+          <div className="container">
+            <Link to="/" className="navbar-brand">Server</Link>
+          </div>
+        </nav>
+      </header>
+      <main>
+        <div className='container mt-3'>
+          {children}
         </div>
-      </nav>
-    </header>
-    <main>
-      <div className='container mt-3'>
-        {children}
-      </div>
-    </main>
-  </div>
+      </main>
+    </div>
   )
 }
 
-export default mainlayout
+export default MainLayout

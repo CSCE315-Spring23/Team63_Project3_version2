@@ -2,7 +2,8 @@
 import {Link} from 'react-router-dom'
 import React, {useEffect, useState} from 'react'
 import axios from "axios"
-import mainlayout from '../Layouts/MainLayout'
+import MainLayout from '../Layouts/MainLayout';
+import '../Layouts/ServerLayout.css';
 
 function Server() {    
         // Use states for cart, products, and loading 
@@ -64,10 +65,10 @@ function Server() {
         useEffect(() => {
             let newTotalAmount = 0;
             cart.forEach(icart => {
-                const total = parseFloat(icart.totalAmount);
-                newTotalAmount += parseFloat(total.toFixed(2));
+                const temp_total = parseFloat(icart.totalAmount);
+                newTotalAmount += parseFloat(temp_total.toFixed(2));
             })
-            setTotalAmount(newTotalAmount);
+            setTotalAmount(parseFloat(newTotalAmount.toFixed(2)));
         },[cart])
 
         // removes all items in cart
@@ -82,66 +83,52 @@ function Server() {
         } ,[products]);
 
     return (
-        <mainlayout>
-        <div className='row'>
-            <header>
-                <nav className='navbar navbar-light bg-primary'>
-                    <div className='conainer'>
-                        <td style={{fontSize: 50}}>Server</td>
-                    </div>
-                </nav>
+        <MainLayout>
+            <div className='row'>
+                <td style={{fontSize: 50, fontFamily: 'Poppins'}}>Entrees\Drinks</td>
+                <div className='col-lg-8'>
+                {isLoading ? 'Loading' : <div className='row'>
+                    {products.map((product, key) =>
+                        <div key={key} className='col-lg-4 mb-4'>
+                            <button onClick={()=>addProductToCart(product)}>
+                            <p style={{fontFamily: 'Poppins'}}>{product.name}</p>
+                            <p style={{fontFamily: 'Poppins'}}>${product.price}</p>
+                            </button>
+                        </div>
+                    )}
+                    </div>}
+                </div>
 
-            </header>
-            <td style={{fontSize: 50}}>Entrees\Drinks</td>
-            <div className='col-lg-8'>
-            {isLoading ? 'Loading' : <div className='row'>
-                {products.map((product, key) =>
-                    <div key={key} className='col-lg-4 mb-4'>
-                        <button onClick={()=>addProductToCart(product)}>
-                        <p>{product.name}</p>
-                        <p>${product.price}</p>
-                        </button>
-                    </div>
-                )}
-                </div>}
-            </div>
-
-            <div className='col-lg-4 mb-4'>
-                <div className='table-responsive bg-dark'>
-                    <table className='table table-responsive table-dark table-hover'>
-                        <thead>
-                            <td style={{ fontSize: 25}}>Order Details:</td>
-                            <tr>
-                                <td>#</td>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Qty</td>
-                                <td>Total</td>
-                                <td>Action</td>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            { cart ? cart.map((cartProduct, key) => <tr>
-                                <td>{cartProduct.id}</td>
-                                <td>{cartProduct.name}</td>
-                                <td>{cartProduct.price}</td>
-                                <td>{cartProduct.quantity}</td>
-                                <td>{cartProduct.totalAmount}</td>
-                                <td>
-                                    <button className='btn btn-danger btn-sm'>Remove</button>
-                                </td>
-                            </tr>)
-                            : 'No Item in Cart' }
-                            <button className='btn btn-danger btn-lg' onClick={removeAllProductsFromCart}>Cancel</button>
-                            <button className='btn btn-success btn-lg'>Confirm</button>
-                        </tbody>
-                    </table>
-                    <h2 className='px-2 text-white'>Total Amount: {totalAmount}</h2>
+                <div className='col-lg-4 mb-4'>
+                    <div className='table-responsive'>
+                        <table className='table table-responsive table-hover'>
+                            <thead>
+                                <td style={{fontFamily: 'Poppins', fontSize: 25}}>Order Details:</td>
+                                <tr>
+                                    <td style={{fontFamily: 'Poppins'}}>#</td>
+                                    <td style={{fontFamily: 'Poppins'}}>Name</td>
+                                    <td style={{fontFamily: 'Poppins'}}>Price</td>
+                                    <td style={{fontFamily: 'Poppins'}}>Qty</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                { cart ? cart.map((cartProduct, key) => <tr>
+                                    <td>{cartProduct.id}</td>
+                                    <td>{cartProduct.name}</td>
+                                    <td>{cartProduct.price}</td>
+                                    <td>{cartProduct.quantity}</td>
+                                    <td>{cartProduct.totalAmount}</td>
+                                </tr>)
+                                : 'No Item in Cart' }
+                                <button style={{fontFamily: 'Poppins', backgroundColor: 'white', color: 'black'}} className='btn btn-danger btn-lg' onClick={removeAllProductsFromCart}>Cancel</button>
+                                <button style={{fontFamily: 'Poppins', backgroundColor: 'white', color: 'black'}} className='btn btn-success btn-lg'>Confirm</button>
+                            </tbody>
+                        </table>
+                    <h2 style={{fontFamily: 'Poppins'}}>Total Amount: {totalAmount}</h2>
                     </div>
                 </div>
             </div>
-        </mainlayout>
+        </MainLayout>
     )
 }
 
