@@ -1,5 +1,6 @@
 import json
 from flask import Flask, request
+from flask_cors import CORS
 import os
 import psycopg2
 from dotenv import load_dotenv
@@ -16,6 +17,7 @@ from backend.entities.inventory_item_extended import InventoryItemExtended
 load_dotenv()  # loads variables from .env file into environment
 
 app = Flask(__name__)
+CORS(app, origins=['http://localhost:3000'])
 
 # gets variables from environment
 database = os.environ.get("DATABASE_NAME")
