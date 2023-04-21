@@ -35,7 +35,7 @@ function Manager(): JSX.Element {
             <ul className="dropdown-menu">
               <li><a href="#" onClick={() => setSelection("excess_report")}>Excess Report</a></li>
               <li><a href="#" onClick={() => setSelection("restock_report")}>Restock Report</a></li>
-              <li><a href="#" onClick={() => setSelection("sales_report")}>Sales Report</a></li>
+              <li><a href="#" onClick={() => { console.log('Clicked sales report'); setSelection("sales_report")}}>Sales Report</a></li> 
               <li><a href="#" onClick={() => setSelection("x_report")}>X-Report</a></li>
               <li><a href="#" onClick={() => setSelection("z_report")}>Z-Report</a></li>
             </ul>

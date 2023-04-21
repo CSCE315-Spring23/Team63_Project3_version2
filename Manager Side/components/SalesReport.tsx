@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 interface SalesReportData {
-  date: string;
-  total_sales: number;
+  order: string;
+  order_total: number;
 }
 
 export default function SalesReport() {
@@ -19,6 +19,18 @@ export default function SalesReport() {
           endDate
         }
       });
+      if(response.status >= 200 && response.status < 300) {
+        console.log(response.status);
+        console.log(response.data);
+        for (const item of response.data) {
+          console.log(`Item name: ${item.order}`);
+          console.log(`Total sales: ${item.order_total}`);
+          console.log('---');
+        }
+      }
+      else {
+        console.error('request failed with status code ${response.status}');
+      }
       setSalesData(response.data);
     } catch (error) {
       console.error(error);
@@ -49,22 +61,24 @@ export default function SalesReport() {
         <input type="date" value={endDate} onChange={handleEndDateChange} />
       </div>
       <button onClick={handleButtonClick}>Fetch Data</button>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Revenue</th>
-          </tr>
-        </thead>
-        <tbody>
-          {salesData.map(sale => (
-            <tr key={sale.date}>
-              <td>{sale.date}</td>
-              <td>{sale.total_sales}</td>
+      {salesData.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>Menu Item</th>
+              <th>Total Sales</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {salesData.map((sale) => (
+              <tr key={sale.order}>
+                <td>{sale.order}</td>
+                <td>{sale.order_total}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
