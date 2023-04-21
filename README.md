@@ -17,4 +17,4 @@
 ### Run App
 1. Navigate to backend directory (not the one in server/manager view).
 2. Activate your virtual environment - `.venv\Scripts\activate` or `source .venv/bin/activate` on mac
-3. `flask run`
+3. `flask run` and click on url given on terminal
