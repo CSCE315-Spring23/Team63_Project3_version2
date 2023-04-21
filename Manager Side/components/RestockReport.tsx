@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+// Define an interface for the restock report data
 interface RestockReportData {
   item_id: string;
   ingredient_name: string;
@@ -8,24 +9,21 @@ interface RestockReportData {
 }
 
 export default function RestockReport() {
+  // Define state variables for array of the restock report data
   const [restockData, setRestockData] = useState<RestockReportData[]>([]);
 
+  // Define a function that fetches data from inventory table
   const fetchData = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:8000/report/inventory/restock');
-      // if (response.status >= 200 && response.status < 300) {
-      //   console.log(response.status);
-      //   console.log(response.data);
-      // }
-      // else {
-      //   console.error('request failed with status code ${response.status}');
-      // }
+      // Update the restock report data in the current state
       setRestockData(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
+  // Define event handler to call fetchData on button fetch
   const handleButtonClick = () => {
     fetchData();
   };

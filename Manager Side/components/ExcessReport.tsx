@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+// Define an interface for the excess report data
 interface ExcessReportData {
   item_id: string;
   ingredient_name: string;
@@ -8,9 +9,11 @@ interface ExcessReportData {
 }
 
 export default function ExcessReport() {
+  // Define state variables for inventoryDate and array of the excess report data
   const [inventoryDate, setInventoryDate] = useState('2023-04-20');
   const [excessData, setExcessData] = useState<ExcessReportData[]>([]);
 
+  // Define a function that fetches data from inventory table
   const fetchData = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:8000/report/inventory/excess', {
@@ -18,7 +21,9 @@ export default function ExcessReport() {
           inventoryDate
         }
       });
+      // Update the excess report data in the current state
       setExcessData(response.data);
+      // Conditional if nothing is returned from the inventoryDate
       if (response.data.length === 0) {
         window.alert('No data found for the selected date.');
       }
@@ -27,10 +32,12 @@ export default function ExcessReport() {
     }
   };
 
+  // Define event handler for changes in inventoryDate
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInventoryDate(event.target.value);
   };
 
+  // Define event handler to call fetchData on button Fetch
   const handleButtonClick = () => {
     fetchData();
   };

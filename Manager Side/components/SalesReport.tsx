@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+// Define an interface for the sales report data
 interface SalesReportData {
   order: string;
   order_total: number;
 }
 
 export default function SalesReport() {
+  // Define state variables for start date, end date, and array of the sales report data
   const [startDate, setStartDate] = useState('2023-01-01');
   const [endDate, setEndDate] = useState('2023-04-20');
   const [salesData, setSalesData] = useState<SalesReportData[]>([]);
 
+  // Define a function that fetches data from sales table 
   const fetchData = async () => {
     try {
       const response = await axios.get('http://127.0.0.1:8000/report/orders/sales', {
@@ -19,32 +22,22 @@ export default function SalesReport() {
           endDate
         }
       });
-      // if(response.status >= 200 && response.status < 300) {
-      //   console.log(response.status);
-      //   console.log(response.data);
-      //   for (const item of response.data) {
-      //     console.log(`Item name: ${item.order}`);
-      //     console.log(`Total sales: ${item.order_total}`);
-      //     console.log('---');
-      //   }
-      // }
-      // else {
-      //   console.error('request failed with status code ${response.status}');
-      // }
+      // Update the sales report data in the current state 
       setSalesData(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
+  // Define event handlers for changes in startDate and endDate
   const handleStartDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStartDate(event.target.value);
   };
-
   const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEndDate(event.target.value);
   };
 
+  // Define event handler to call fetchData on button Fetch
   const handleButtonClick = () => {
     fetchData();
   };
@@ -81,5 +74,4 @@ export default function SalesReport() {
       )}
     </div>
   );
-  
 }
