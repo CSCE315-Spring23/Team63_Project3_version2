@@ -5,6 +5,7 @@ import axios from "axios"
 import MainLayout from '../Layouts/MainLayout';
 import '../Layouts/ServerLayout.css';
 
+
 function Server() {    
         // Use states for cart, products, and loading 
         const [cart, setCart] = useState([]);
@@ -13,9 +14,6 @@ function Server() {
         const [totalAmount, setTotalAmount] = useState(0);
 
         // fetchProduct is an async function that shows if items are loading in (test function) but also loads in data from products 
-
-
-
         const fetchProduct = async() => {
             setIsLoading(true);
             const result = await axios.get('products');
@@ -26,14 +24,14 @@ function Server() {
         // addProductToCart allows user to press buttons to add to the receipt area
         const addProductToCart = async(product) =>{
             let findProductInCart = await cart.find(i=>{
-                return i.id === product.id
+                return i.id == product.id
             });
 
             if(findProductInCart) {
                 let newCart = [];
                 let newItem;
                 cart.forEach(cartItem =>{
-                    if(cartItem.id === product.id) {
+                    if(cartItem.id == product.id) {
                         newItem = {
                             ...cartItem,
                             quantity: cartItem.quantity + 1,
@@ -62,10 +60,7 @@ function Server() {
 
         useEffect(() => {
             fetchProduct();
-            
         },[]);
-
-        
 
         // keeps track of total amount
         useEffect(() => {
@@ -88,31 +83,23 @@ function Server() {
             console.log(products);
         } ,[products]);
 
-
     return (
         <MainLayout>
-
             <div className='row'>
-
-                <td style={{fontSize: 50, fontFamily: 'Poppins'}}>Burritos:</td>
+                <td style={{fontSize: 50, fontFamily: 'Poppins'}}>Entrees\Drinks</td>
                 <div className='col-lg-8'>
                 {isLoading ? 'Loading' : <div className='row'>
                     {products.map((product, key) =>
                         <div key={key} className='col-lg-4 mb-4'>
-                            {product.type==="burrito" &&
                             <button onClick={()=>addProductToCart(product)}>
                             <p style={{fontFamily: 'Poppins'}}>{product.name}</p>
                             <img src={product.image} className="img-fluid" alt={product.name} />
                             <p style={{fontFamily: 'Poppins'}}>${product.price}</p>
                             </button>
-                            }
                         </div>
                     )}
                     </div>}
                 </div>
-
-
-
 
                 <div className='col-lg-4 mb-4'>
                     <div className='table-responsive'>
@@ -142,104 +129,6 @@ function Server() {
                     <h2 style={{fontFamily: 'Poppins'}}>Total Amount: {totalAmount}</h2>
                     </div>
                 </div>
-
-
-
-
-
-                <td style={{fontSize: 50, fontFamily: 'Poppins'}}>Bowls:</td>
-                <div className='col-lg-8'>
-                {isLoading ? 'Loading' : <div className='row'>
-                    {products.map((product, key) =>
-                        <div key={key} className='col-lg-4 md-4'>
-                            {product.type==="bowl" &&
-                            <button onClick={()=>addProductToCart(product)}>
-                            <p style={{fontFamily: 'Poppins'}}>{product.name}</p>
-                            <img src={product.image} className="img-fluid" alt={product.name} />
-                            <p style={{fontFamily: 'Poppins'}}>${product.price}</p>
-                            </button>
-                            }
-                        </div>
-                    )}
-                    </div>}
-                </div>
-
-
-                <td style={{fontSize: 50, fontFamily: 'Poppins'}}>Tacos:</td>
-                <div className='col-lg-8'>
-                {isLoading ? 'Loading' : <div className='row'>
-                    {products.map((product, key) =>
-                        <div key={key} className='col-lg-4 mb-4'>
-                            {product.type==="taco" &&
-                            <button onClick={()=>addProductToCart(product)}>
-                            <p style={{fontFamily: 'Poppins'}}>{product.name}</p>
-                            <img src={product.image} className="img-fluid" alt={product.name} />
-                            <p style={{fontFamily: 'Poppins'}}>${product.price}</p>
-                            </button>
-                            }
-                        </div>
-                    )}
-                    </div>}
-                </div>
-
-
-                <td style={{fontSize: 50, fontFamily: 'Poppins'}}>Sides:</td>
-                <div className='col-lg-8'>
-                {isLoading ? 'Loading' : <div className='row'>
-                    {products.map((product, key) =>
-                        <div key={key} className='col-lg-4 mb-4'>
-                            {product.type==="side" &&
-                            <button onClick={()=>addProductToCart(product)}>
-                            <p style={{fontFamily: 'Poppins'}}>{product.name}</p>
-                            <img src={product.image} className="img-fluid" alt={product.name} />
-                            <p style={{fontFamily: 'Poppins'}}>${product.price}</p>
-                            </button>
-                            }
-                        </div>
-                    )}
-                    </div>}
-                </div>
-
-
-                <td style={{fontSize: 50, fontFamily: 'Poppins'}}>Drinks:</td>
-                <div className='col-lg-8'>
-                {isLoading ? 'Loading' : <div className='row'>
-                    {products.map((product, key) =>
-                        <div key={key} className='col-lg-4 mb-4'>
-                            {product.type==="drink" &&
-                            <button onClick={()=>addProductToCart(product)}>
-                            <p style={{fontFamily: 'Poppins'}}>{product.name}</p>
-                            <img src={product.image} className="img-fluid" alt={product.name} />
-                            <p style={{fontFamily: 'Poppins'}}>${product.price}</p>
-                            </button>
-                            }
-                        </div>
-                    )}
-                    </div>}
-                </div>
-
-
-                <td style={{fontSize: 50, fontFamily: 'Poppins'}}>Others:</td>
-                <div className='col-lg-8'>
-                {isLoading ? 'Loading' : <div className='row'>
-                    {products.map((product, key) =>
-                        <div key={key} className='col-lg-4 mb-4'>
-                            {product.type==="other" &&
-                            <button onClick={()=>addProductToCart(product)}>
-                            <p style={{fontFamily: 'Poppins'}}>{product.name}</p>
-                            <img src={product.image} className="img-fluid" alt={product.name} />
-                            <p style={{fontFamily: 'Poppins'}}>${product.price}</p>
-                            </button>
-                            }
-                        </div>
-                    )}
-                    </div>}
-                </div>
-
-
-                
-
-                
             </div>
         </MainLayout>
     )
