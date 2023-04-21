@@ -1,13 +1,33 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function XReport() {
+
+  interface xReportItem {
+    order: string;
+    order_total: number;
+  }
+
+  const [xReportItems, setxReportItems] = useState<xReportItem[]>([]);
+
+
   const [inputValue, setInputValue] = useState('');
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
-  const handleConfirm = () => {
-    alert(`You entered: ${inputValue}`);
+
+  const handleXReportClick = () => {
+    const url = `http://127.0.0.1:8000/report/orders/x?orderDate=${inputValue}`;
+    console.log("Before axios request");
+    axios.get(url)
+    .then(response => {
+        console.log(response.data);
+        setxReportItems(response.data);
+    })
+    .catch(error => console.log(error));
+    console.log("After axios request");
   };
 
   return (
@@ -17,12 +37,29 @@ export default function XReport() {
           type="text"
           value={inputValue}
           onChange={handleChange}
-          placeholder="Enter some text"
+          placeholder="Enter a date"
         />
-        <button onClick={handleConfirm}>Confirm</button>
-
+        <button onClick={handleXReportClick}>Generate Report</button>
       </div>
-
+      <div>
+    <table className="table">
+        <thead>
+        <tr>
+            <th>Order</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {xReportItems.map(item => (
+            <tr key={uuidv4()}>
+            <td>${item.order}</td>
+            <td>${item.order_total.toFixed(2)}</td>
+            </tr>
+        ))}
+        </tbody>
+    </table>
+    </div>
+    
     </div>
   )
 }
