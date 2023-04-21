@@ -19,6 +19,9 @@ export default function ExcessReport() {
         }
       });
       setExcessData(response.data);
+      if (response.data.length === 0) {
+        window.alert('No data found for the selected date.');
+      }
     } catch (error) {
       console.error(error);
     }
@@ -41,7 +44,7 @@ export default function ExcessReport() {
       </div>
       <button onClick={handleButtonClick}>Fetch Data</button>
       {excessData.length > 0 && (
-        <table>
+        <table className="table">
           <thead>
             <tr>
               <th>Item ID</th>

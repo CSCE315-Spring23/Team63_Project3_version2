@@ -35,7 +35,7 @@ export default function RestockReport() {
       <h1>Restock Report</h1>
       <button onClick={handleButtonClick}>Fetch Data</button>
       {restockData.length > 0 && (
-        <table>
+        <table className="table">
           <thead>
             <tr>
               <th>Item ID</th>
@@ -55,5 +55,5 @@ export default function RestockReport() {
         </table>
       )}
     </div>
-  );
+  );  
 }

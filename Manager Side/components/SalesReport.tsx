@@ -62,7 +62,7 @@ export default function SalesReport() {
       </div>
       <button onClick={handleButtonClick}>Fetch Data</button>
       {salesData.length > 0 && (
-        <table>
+        <table className="table">
           <thead>
             <tr>
               <th>Menu Item</th>
@@ -81,4 +81,5 @@ export default function SalesReport() {
       )}
     </div>
   );
+  
 }
