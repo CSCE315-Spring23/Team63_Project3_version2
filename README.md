@@ -9,7 +9,7 @@
 ### One time setup
 1. Navigate to backend directory.
 2. Create a virtual environment - `python -m venv .venv`
-3. Activate your virtual environment - `.venv\Scripts\activate`
+3. Activate your virtual environment - `.venv\Scripts\activate`or `source .venv/bin/activate` on mac
 4. Install flask - `pip install flask`
 5. Install psycopg2 - `pip install psycopg2`
 6. Install dotenv - `pip install python-dotenv`
