@@ -63,6 +63,7 @@ def get_inventory_excess_report(connection, inventory_date: str) -> list[Invento
 
             # get existing inventory snapshot
             inventory_status_res = inventory_status.get_inventory_status_by_date(cursor, inventory_date)
+            print('invenotry_statsus_resalert:', inventory_status_res)
             inventory_status_quantity = inventory_status_res[1].split(":")
             inventory_status_items = inventory_status_res[2].split(":")
             for i in range(0, len(inventory_status_items)):

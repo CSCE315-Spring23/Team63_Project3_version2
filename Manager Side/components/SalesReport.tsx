@@ -19,18 +19,18 @@ export default function SalesReport() {
           endDate
         }
       });
-      if(response.status >= 200 && response.status < 300) {
-        console.log(response.status);
-        console.log(response.data);
-        for (const item of response.data) {
-          console.log(`Item name: ${item.order}`);
-          console.log(`Total sales: ${item.order_total}`);
-          console.log('---');
-        }
-      }
-      else {
-        console.error('request failed with status code ${response.status}');
-      }
+      // if(response.status >= 200 && response.status < 300) {
+      //   console.log(response.status);
+      //   console.log(response.data);
+      //   for (const item of response.data) {
+      //     console.log(`Item name: ${item.order}`);
+      //     console.log(`Total sales: ${item.order_total}`);
+      //     console.log('---');
+      //   }
+      // }
+      // else {
+      //   console.error('request failed with status code ${response.status}');
+      // }
       setSalesData(response.data);
     } catch (error) {
       console.error(error);
