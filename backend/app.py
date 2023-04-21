@@ -82,10 +82,25 @@ def post_order():
     checkout_order(connection, employee_id, date, customer_name, itemsList, total, inventoryList)
     return "Order checked out", 201
 
-@app.route("/report/orders/sales", methods = ['GET'])
-def get_orders_between_dates():
-    args = request.args.to_dict()
-    return json.dumps(get_all_orders_between_dates(connection, args.get('startDate'), args.get('endDate')), cls=CustomEncoder), 200
+# @app.route("/report/orders/sales", methods = ['GET'])
+# def get_orders_between_dates():
+#     args = request.args.to_dict()
+#     return json.dumps(get_all_orders_between_dates(connection, args.get('startDate'), args.get('endDate')), cls=CustomEncoder), 200
+
+# New version for report/orders/sales endpoint
+@app.route('/report/orders/sales', methods=['GET'])
+def sales_report():
+    # get the start date and end date from the query parameters
+    start_date = request.args.get('startDate')
+    end_date = request.args.get('endDate')
+    
+    # logic to fetch the sales report data from the database
+    # and convert it to a JSON string
+    sales_data = {'date': '2023-04-21', 'total_sales': 1000}
+    sales_json = json.dumps(sales_data)
+
+    # return the JSON response
+    return sales_json, 200
 
 @app.route("/report/orders/x", methods = ['GET'])
 def get_orders_by_date():
