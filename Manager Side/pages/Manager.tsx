@@ -12,6 +12,8 @@ import axios from 'axios';
 
 import userData from './user_data.json';
 
+// this code has been peer reviewed by the manager of this Project
+
 function Manager(): JSX.Element {
   const [selection, setSelection] = useState("x_report");
 
