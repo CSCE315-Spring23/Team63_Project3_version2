@@ -13,6 +13,7 @@ from backend.controllers.server_controller import checkout_order
 from backend.entities.inventory_item import InventoryItem
 from backend.entities.inventory_item_extended import InventoryItemExtended
 
+#this database related code has been peer reviewed by the manager of this Project
 
 load_dotenv()  # loads variables from .env file into environment
 
