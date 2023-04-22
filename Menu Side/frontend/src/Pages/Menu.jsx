@@ -94,7 +94,7 @@ function Menu() {
         <>
             {/* Navigation bar */}
             <div className="navbar">
-                <img src="cabo_icon.png" alt="Logo" />
+                <img src="cabo_icon.png" alt="Welcome To Cabo!" className = "logo"/>
                 <div className="navbar-right">
                     <button>Back to Order</button>
                 </div>
@@ -108,8 +108,9 @@ function Menu() {
               
                 {/* Bowls */}
                 <h3> Bowls: </h3> 
-                <div className = "animation">
+                
                     {isLoading ? 'Loading' : <div className = "container-left"> 
+                                            <div className = "animation">
                                             <button className = "custom-button"> Make-Your-Own Bowl </button>
                     {products.filter((product) => product.type === 'bowl').map((product, key) =>
                     
@@ -121,8 +122,9 @@ function Menu() {
                             </div>
                         </button>
                     )}
+                    </div>
                     </div>}
-                </div>
+                
 
                 {/* Burritos */}
                 <h1> Burritos </h1>

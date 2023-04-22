@@ -47,9 +47,7 @@ body::-webkit-scrollbar-thumb:hover {
     display: inline-block;
     vertical-align: top;
     width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    margin-top: 15px;    /* if you want it vertically middle of the navbar. */
+    margin-left: 20px;
 }
 
 .navbar-right {
@@ -94,14 +92,11 @@ body::-webkit-scrollbar-thumb:hover {
 .container-left {
     height: 250px;
     width: 100%;
-    overflow:initial;
+    overflow:hidden;
     margin-right: 10%;
     margin-bottom: 7%;
     padding-right: 2%;
-    display: grid;
-    gap: 1rem;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));
+
 
 
 }
@@ -123,38 +118,40 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .animation {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));
     /* animation properties */
-    -moz-transform: translateX(100%);
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
+
     
-    -moz-animation: my-animation linear 4s infinite;
-    -webkit-animation: my-animation linear 4s infinite;
-    animation: my-animation 4s linear infinite;
+    -moz-animation: my-animation linear 12% infinite;
+    -webkit-animation: my-animation linear 12s infinite;
+    animation: my-animation 12s linear infinite;
 }
 
 /* for Firefox */
 @-moz-keyframes my-animation {
-    from { -moz-transform: translateX(0%); }
-    to { -moz-transform: translateX(-100%); }
+    from { -moz-transform: translateX(150%); }
+    to { -moz-transform: translateX(-150%); }
 }
   
 /* for Chrome */
 @-webkit-keyframes my-animation {
-    from { -webkit-transform: translateX(0%); }
-    to { -webkit-transform: translateX(-100%); }
+    from { -webkit-transform: translateX(150%); }
+    to { -webkit-transform: translateX(-150%); }
 }
   
 @keyframes my-animation {
     from {
-        -moz-transform: translateX(0%);
-        -webkit-transform: translateX(0%);
-        transform: translateX(0%);
+        -moz-transform: translateX(150%);
+        -webkit-transform: translateX(150%);
+        transform: translateX(150%);
     }
     to {
-        -moz-transform: translateX(-100%);
-        -webkit-transform: translateX(-100%);
-        transform: translateX(-100%);
+        -moz-transform: translateX(-150%);
+        -webkit-transform: translateX(-150%);
+        transform: translateX(-150%);
     }
 }  
 
