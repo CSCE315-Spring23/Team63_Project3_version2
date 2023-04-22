@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-
+// this code has been peer reviewed by the manager of this Project
 
 export default function Inventory() {
 
