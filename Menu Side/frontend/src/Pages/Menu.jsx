@@ -94,7 +94,7 @@ function Menu() {
         <>
             {/* Navigation bar */}
             <div className="navbar">
-                <img src="cabo_icon.png" alt="Welcome To Cabo!" className = "logo"/>
+                <img src="cabo_logo.jpg" alt="Welcome To Cabo!" className = "logo"/>
                 <div className="navbar-right">
                     <button>Back to Order</button>
                 </div>
