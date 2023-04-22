@@ -127,8 +127,9 @@ function Menu() {
                 
 
                 {/* Burritos */}
-                <h1> Burritos </h1>
+                <h3> Burritos </h3>
                 {isLoading ? 'Loading' : <div className = "container-left">
+                                         <div className = "animation">
                                         <button className = "custom-button"> Make-Your-Own Burrito </button>
                 {products.filter((product) => product.type === 'burrito').map((product, key) =>
                     <button key = {key} className = "product-button" onClick={()=>addProductToCart(product)}>
@@ -139,11 +140,13 @@ function Menu() {
                         </div>
                     </button>
                     )}
+                </div>
                 </div>}
 
                 {/* Tacos */}
-                <h1> Tacos </h1>
+                <h3> Tacos </h3>
                 {isLoading ? 'Loading' : <div className = "container-left">
+                                        <div className = "animation">
                                         <button className = "custom-button"> Make-Your-Own Taco </button>
                 {products.filter((product) => product.type === 'taco').map((product, key) =>
                     <button key = {key} className = "product-button" onClick={()=>addProductToCart(product)}>
@@ -154,11 +157,13 @@ function Menu() {
                         </div>
                     </button>
                 )}
+                </div>
                 </div>}
 
                 {/* Other */}
                 <h1> Other </h1>
                 {isLoading ? 'Loading' : <div className = "container-left">
+                                         <div className = "animation">
                 {products.filter((product) => product.type === 'other').map((product, key) =>
                     <button key = {key} className = "product-button" onClick={()=>addProductToCart(product)}>
                         <img src={product.image} className="img-fluid" alt={product.name} />
@@ -168,6 +173,7 @@ function Menu() {
                         </div>
                     </button>
                 )}
+                </div>
                 </div>}
             </div>
 
