@@ -110,6 +110,7 @@ def get_excess_report():
 @app.route("/report/menu/popular", methods = ['GET'])
 def get_popular_menu_items():
     args = request.args.to_dict()
+    print('these are my args: ', args)
     return json.dumps(get_all_popular_menu_items(connection, args.get('startDate'), args.get('endDate')), cls=CustomEncoder), 200
 
 @app.route("/inventory/update", methods=['PUT'])
