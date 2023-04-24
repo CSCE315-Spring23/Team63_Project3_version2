@@ -5,7 +5,7 @@ import {
   Route,
 } from 'react-router-dom';
 
-import Server from './Pages/server';
+import Menu from './Pages/Menu';
 import React, { useState } from 'react';
 
 
@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Server/>} />
+        <Route path="/" element={<Menu/>} />
       </Routes>
     </Router>
   );

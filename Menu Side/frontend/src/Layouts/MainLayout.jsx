@@ -3,11 +3,11 @@ import {Link} from 'react-router-dom'
 
 function MainLayout({children}) {
   return (
-    <div style={{backgroundColor: '#9fb0a8'}}>
+    <div>
       <header>
-        <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor: '#65706b', fontFamily: 'Poppins'}}>
+        <nav className="navbar navbar-expand-lg navbar-dark">
           <div className="container">
-            <Link to="/" className="navbar-brand">Menu</Link>
+            <Link to="./logo192.png" className="navbar-brand">Menu</Link>
           </div>
         </nav>
       </header>
