@@ -1,11 +1,11 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-function CustomerLayout({children}) {
+function MainLayout({children}) {
   return (
-    <div style={{backgroundColor: '#9fb0a8'}}>
+    <div>
       <header>
-        <nav className="navbar navbar-expand-lg navbar-dark" style={{backgroundColor: '#65706b', fontFamily: 'Poppins'}}>
+        <nav className="navbar navbar-expand-lg navbar-dark">
           <div className="container">
             <Link to="/" className="navbar-brand">Customer Order Page</Link>
           </div>
@@ -20,4 +20,4 @@ function CustomerLayout({children}) {
   )
 }
 
-export default CustomerLayout
+export default MainLayout
