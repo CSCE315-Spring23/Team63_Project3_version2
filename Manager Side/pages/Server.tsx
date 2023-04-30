@@ -37,6 +37,7 @@ const Server = () => {
     setCartItems([...cartItems, newCartItem]);
   };
 
+  // Removes specified item from the receipt area
   const removeFromCart = (index: number) => {
     const newCartItems = [...cartItems];
     newCartItems.splice(index, 1);
