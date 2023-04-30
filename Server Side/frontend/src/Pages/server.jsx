@@ -2,8 +2,8 @@
 import {Link} from 'react-router-dom'
 import React, {useEffect, useState} from 'react'
 import axios from "axios"
-import MainLayout from '../Layouts/MainLayout';
-import '../Layouts/ServerLayout.css';
+// import MainLayout from '../Layouts/MainLayout';
+// import '../Layouts/ServerLayout.css';
 
 function Server() {    
         // Use states for cart, products, and loading 
@@ -83,7 +83,7 @@ function Server() {
         } ,[products]);
 
     return (
-        <MainLayout>
+        // <MainLayout>
             <div className='row'>
                 <td style={{fontSize: 50, fontFamily: 'Poppins'}}>Entrees\Drinks</td>
                 <div className='col-lg-8'>
@@ -128,7 +128,7 @@ function Server() {
                     </div>
                 </div>
             </div>
-        </MainLayout>
+        {/* </MainLayout> */}
     )
 }
 
