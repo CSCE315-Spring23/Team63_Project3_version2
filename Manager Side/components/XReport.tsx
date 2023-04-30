@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import styles from '../styles/Manager.module.css';
 
 // this code has been peer reviewed by the manager of this Project to ensure proper functionality
 
@@ -44,7 +45,7 @@ export default function XReport() {
         <button onClick={handleXReportClick}>Generate Report</button>
       </div>
       <div>
-    <table className="table">
+    <table className={styles.table}>
         <thead>
         <tr>
             <th>Order</th>

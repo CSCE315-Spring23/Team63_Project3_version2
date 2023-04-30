@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import styles from '../styles/Manager.module.css';
 
 // Define an interface for the sales report data
 interface SalesReportData {
@@ -55,7 +56,7 @@ export default function SalesReport() {
       </div>
       <button onClick={handleButtonClick}>Fetch Data</button>
       {salesData.length > 0 && (
-        <table className="table">
+        <table className={styles.table}>
           <thead>
             <tr>
               <th>Menu Item</th>

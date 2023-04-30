@@ -14,8 +14,6 @@ function Menu() {
 
     // fetchProduct is an async function that shows if items are loading in (test function) but also loads in data from products 
 
-
-
     const fetchProduct = async() => {
         setIsLoading(true);
         const result = await axios.get('products');

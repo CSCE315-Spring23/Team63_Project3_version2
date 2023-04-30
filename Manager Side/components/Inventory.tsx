@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import styles from '../styles/Manager.module.css';
 // this code has been peer reviewed by the manager of this Project
 
 export default function Inventory() {
@@ -30,7 +31,7 @@ export default function Inventory() {
 
   return (
     <div>
-    <table className="table">
+    <table className={styles.table}>
         <thead>
         <tr>
             <th>Ingredient Name</th>

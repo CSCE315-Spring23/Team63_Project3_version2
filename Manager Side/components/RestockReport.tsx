@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import styles from '../styles/Manager.module.css';
 
 // Define an interface for the restock report data
 interface RestockReportData {
@@ -33,7 +34,7 @@ export default function RestockReport() {
       <h1>Restock Report</h1>
       <button onClick={handleButtonClick}>Fetch Data</button>
       {restockData.length > 0 && (
-        <table className="table">
+        <table className={styles.table}>
           <thead>
             <tr>
               <th>Item ID</th>

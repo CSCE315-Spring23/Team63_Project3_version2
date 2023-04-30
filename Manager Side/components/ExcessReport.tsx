@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import styles from '../styles/Manager.module.css';
 
 // Define an interface for the excess report data
 interface ExcessReportData {
@@ -51,7 +52,7 @@ export default function ExcessReport() {
       </div>
       <button onClick={handleButtonClick}>Fetch Data</button>
       {excessData.length > 0 && (
-        <table className="table">
+        <table className={styles.table}>
           <thead>
             <tr>
               <th>Item ID</th>

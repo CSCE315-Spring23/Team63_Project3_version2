@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import styles from '../styles/Manager.module.css';
 export default function ZReport() {
 
 
