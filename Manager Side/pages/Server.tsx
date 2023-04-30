@@ -47,6 +47,7 @@ const Server = () => {
     return cartItems.reduce((total, item) => total + item.price, 0);
   };
 
+  // Confirm order should update the following tables: order history, inventory, z report, and sales.
   const confirmOrder = () => {
     setIsConfirmed(true);
     setCartItems([]);
