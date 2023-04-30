@@ -1,4 +1,4 @@
-.weather-bar {
+.weatherBar {
     display: flex;
     align-items: center;
     height: 70px;
@@ -6,7 +6,7 @@
     padding: 0 20px;
   }
   
-  .weather-info {
+  .weatherInfo {
     display: flex;
     align-items: center;
     height: 100%;
@@ -21,3 +21,10 @@
     margin: 0 10px;
   }
   
+
+  .weatherIcon {
+    height: 100px;
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }

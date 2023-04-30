@@ -1,28 +1,15 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// export interface WeatherData {
-//   [key: string]: any;
-// }
-// Add the export keyword before the interface declaration
 export interface WeatherData {
-    request: object;
-    location: object;
-    current: {
-      weather_icons: string[];
-      temperature: number;
-      feelslike: number;
-      weather_descriptions: string[];
-      humidity: number;
-    };
-  }
-  
-
-// Cache object to store weather data
-const cache = {
-  data: null as WeatherData | null,
-  lastFetch: null as number | null,
-};
+  current: {
+    weather_icons: string[];
+    temperature: number;
+    feelslike: number;
+    weather_descriptions: string[];
+    humidity: number;
+  };
+}
 
 export const useWeather = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
@@ -30,29 +17,27 @@ export const useWeather = () => {
 
   useEffect(() => {
     const fetchWeatherData = async () => {
-      const apiKey = '105cf124b1a759f46bc425bfe1e2d90d';
-      const endpoint = `http://api.weatherstack.com/current?access_key=${apiKey}&query=College Station&units=f`;
+      const apiKey = 'b4950e1f3ae02c0558d2c5e0190527f3';
+      const endpoint = `https://api.openweathermap.org/data/2.5/weather?q=College%20Station&units=imperial&appid=${apiKey}`;
 
-      // Check if cache is valid (not older than 10 minutes)
-      const now = new Date().getTime();
-      const cacheValid = cache.lastFetch && (now - cache.lastFetch) < 10 * 60 * 1000;
+      try {
+        const response = await axios.get(endpoint);
+        const { data } = response;
 
-      if (cacheValid) {
-        // Use cached data
-        setWeatherData(cache.data);
+        const weatherData: WeatherData = {
+          current: {
+            weather_icons: [data.weather[0].icon],
+            temperature: data.main.temp,
+            feelslike: data.main.feels_like,
+            weather_descriptions: [data.weather[0].description],
+            humidity: data.main.humidity,
+          },
+        };
+
+        setWeatherData(weatherData);
         setLoading(false);
-      } else {
-        try {
-          const response = await axios.get(endpoint);
-          // Update cache with new data and timestamp
-          cache.data = response.data;
-          cache.lastFetch = new Date().getTime();
-
-          setWeatherData(response.data);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error fetching weather data:', error);
-        }
+      } catch (error) {
+        console.error('Error fetching weather data:', error);
       }
     };
 

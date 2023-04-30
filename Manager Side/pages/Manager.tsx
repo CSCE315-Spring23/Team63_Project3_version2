@@ -58,7 +58,7 @@ function Manager(): JSX.Element {
 
       {/* Weather Bar */}
       {loading ? <div>Loading weather data...</div> : <WeatherBar weatherData={weatherData} />}
-      
+
       {/* Main Content */}
       <div>
         
