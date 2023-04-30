@@ -1,0 +1,23 @@
+.weather-bar {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    background-color: rgba(255, 255, 255, 0.1); /* Change the opacity value as needed */
+    padding: 0 20px;
+  }
+  
+  .weather-info {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+  
+  .separator {
+    height: 50%;
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.3); /* Change the color and opacity value as needed */
+    margin: 0 10px;
+  }
+  
