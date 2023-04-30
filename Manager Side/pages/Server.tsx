@@ -52,7 +52,22 @@ const Server = () => {
   const confirmOrder = () => {
     setIsConfirmed(true);
     setCartItems([]);
+    
+    const options = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ingredients: cartItems })
+    };
+  
+    fetch('/decrease-ingredients', options)
+      .then(response => {
+        // Handle the response
+      })
+      .catch(error => {
+        // Handle the error
+      });
   };
+  
 
   const confirmAnotherOrder = () => {
     setIsConfirmed(false);
