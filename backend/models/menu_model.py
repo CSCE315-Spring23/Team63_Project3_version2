@@ -18,8 +18,8 @@ class MenuModel():
     def edit_menu_item(self, cursor, item_num: int, name:str, price:float):
         cursor.execute(f"UPDATE menu2 SET food = '{name}', price = {price} WHERE itemnum={item_num};")
 
-    def add_menu_item(self, cursor, item_num: int, food: str, price: float, ingredients: list[InventoryItem]):
-        query = f"INSERT INTO menu2 (itemnum, food, price, ingridents) VALUES ({item_num}, '{food}', {price}, '{self.get_ingredient_str_from_list(ingredients)}');"
+    def add_menu_item(self, cursor, item_num: int, food: str, price: float, ingredients: str):
+        query = f"INSERT INTO menu2 (itemnum, food, price, ingridents) VALUES ({item_num}, '{food}', {price}, '{ingredients}');"
         cursor.execute(query)
 
     def get_formatted_str(self, ingredient: InventoryItem):
