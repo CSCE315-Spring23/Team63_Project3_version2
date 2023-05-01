@@ -30,3 +30,9 @@ class InventoryModel():
         expiration_date = date_time.date()
         query = f"UPDATE inventory_table SET item = '{inventory.ingredient_name}', quantity = '{inventory.quantity}', vendor_name = '{inventory.vendor_name}', price = '{inventory.price}', expiration_date = '{expiration_date}', units = '{inventory.units}' WHERE item_id = {inventory.item_id};"
         cursor.execute(query)
+        
+    def update_inventory_quantity(self, cursor, inventory: InventoryItemExtended):
+        date_time = datetime.datetime.strptime(inventory.expiration_date, DATE_FORMAT)
+        expiration_date = date_time.date()
+        query = f"UPDATE inventory_table SET quantity = '{inventory.quantity}' WHERE item_id = {inventory.item_id};"
+        cursor.execute(query)
