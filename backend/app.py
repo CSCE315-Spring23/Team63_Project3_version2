@@ -5,7 +5,7 @@ import os
 import psycopg2
 from dotenv import load_dotenv
 from backend.controllers.custom_encoder import CustomEncoder
-from backend.controllers.inventory_controller import get_all_inventory_items, update_inventory_by_item_id, decrement_inventory_by_name
+from backend.controllers.inventory_controller import get_all_inventory_items, update_inventory_by_item_id
 from backend.controllers.manager_controller import get_all_popular_menu_items, get_all_restock_inventory_items, get_inventory_excess_report, get_total_sales_by_date
 from backend.controllers.menu_controller import add_new_menu_item, delete_menu_item_by_item_num, edit_menu_item_by_item_num, get_all_menu_items
 from backend.controllers.order_controller import get_all_orders_between_dates, get_all_orders_by_date
@@ -127,15 +127,23 @@ def restock_inventory():
     update_inventory_by_item_id(connection, inventory)
     return "Updated inventory item", 200
 
-# App routes to help with confirm for server side
-# Decrease quantity by item id
-@app.route("/menu/order", methods=['POST'])
-def place_order():
-    order = request.json
-    
-    for item in order:
-        for ingredient in item['ingredients']:
-            quantity, ingredient_name = ingredient.split(':')
-            decrement_inventory_by_name(connection, ingredient_name, float(quantity))
-    
-    return "Order placed successfully!", 200
+# Function that updates inventory_table based off of order
+@app.route("/checkout", methods=['POST'])
+def checkout():
+    # get JSON payload from request body
+    data = request.get_json()
+
+    # extract data from payload
+    employee_id = data.get('employee_id')
+    order_date = data.get('order_date')
+    customer_name = data.get('customer_name')
+    items_list = data.get('items_list')
+    total = data.get('total')
+    inventory_list = data.get('inventory_list')
+
+    # call checkout_order for each order
+    for order in items_list:
+        checkout_order(connection, employee_id, order_date, customer_name, order, total, inventory_list)
+
+    # return success response
+    return "Order(s) processed successfully", 200

@@ -51,23 +51,24 @@ const Server = () => {
   // Confirm order should update the following tables: order history, inventory, z report, and sales.
   const confirmOrder = () => {
     setIsConfirmed(true);
-    setCartItems([]);
     
     const options = {
-      method: 'PUT',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ingredients: cartItems })
     };
   
-    fetch('/decrease-ingredients', options)
+    fetch('/menu/order', options)
       .then(response => {
         // Handle the response
+        console.log("Server got the message", response);
       })
       .catch(error => {
         // Handle the error
       });
+
+      setCartItems([]);
   };
-  
 
   const confirmAnotherOrder = () => {
     setIsConfirmed(false);
