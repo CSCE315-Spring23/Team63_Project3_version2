@@ -34,10 +34,11 @@ export default function ZReport() {
           onChange={handleChange}
           placeholder="Enter a date"
         />
-        <button onClick={handleZReportClick}>Generate Report</button>
+        <button className='reportButton' onClick={handleZReportClick}>Generate Report</button>
       </div>
-      <div>Total Sales: {zReportTotal}</div>
-    
+      <div className="zReportDisplay">
+        Total Sales: {zReportTotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+      </div>
     </div>
   )
 }
