@@ -1,5 +1,6 @@
-import React from 'react';
+// import React from 'react';
 // import '../styles/styles.css';
+import * as React from 'react';
 import { useState, useEffect } from 'react';
 import XReport from '@/components/XReport';
 import RestockReport from '@/components/RestockReport';
@@ -8,16 +9,23 @@ import ZReport from '@/components/ZReport';
 import SalesReport from '@/components/SalesReport';
 import Inventory from '@/components/Inventory';
 import Menu from '@/components/Menu';
+
 import axios from 'axios';
 
 import userData from './user_data.json';
+
+// some imports from ayo
+import { useWeather } from '@/hooks/useWeather';
+import WeatherBar from '@/components/WeatherBar';
 
 // this code has been peer reviewed by the manager of this Project
 
 function Manager(): JSX.Element {
   const [selection, setSelection] = useState("x_report");
+  const { weatherData, loading } = useWeather();
 
   return (
+    <>
     <div className="App">
       {/* Navigation Bar */} 
       <nav>
@@ -48,8 +56,12 @@ function Manager(): JSX.Element {
         </ul>
       </nav>
 
+      {/* Weather Bar */}
+      {loading ? <div>Loading weather data...</div> : <WeatherBar weatherData={weatherData} />}
+
       {/* Main Content */}
       <div>
+        
         {selection == "x_report" && <XReport/>}
         {selection == "restock_report" && <RestockReport/>}
         {selection == "sales_report" && <SalesReport/>}
@@ -57,6 +69,7 @@ function Manager(): JSX.Element {
         {selection == "excess_report" && <ExcessReport/>}
         {selection == "inventory" && <Inventory/>}
         {selection == "menu" && <Menu/>}
+        
         </div>
 
       {/* Footer */}
@@ -64,6 +77,7 @@ function Manager(): JSX.Element {
         <p>&copy; 2023 WFHD. All rights reserved.</p>
       </footer> */}
     </div>
+    </>
   );
 }
 
