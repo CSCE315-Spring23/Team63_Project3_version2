@@ -10,7 +10,7 @@ const GoogleAuth = () => {
      //Handle the Google Sign-In response here
     console.log(response);
 
-    router.push('http://localhost:3000/Manager');
+    router.push('http://localhost:3000/Staff-Login');
 
   };
 
