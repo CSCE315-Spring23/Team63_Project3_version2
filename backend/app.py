@@ -13,7 +13,7 @@ from backend.controllers.server_controller import checkout_order
 from backend.entities.inventory_item import InventoryItem
 from backend.entities.inventory_item_extended import InventoryItemExtended
 
-#this database related code has been peer reviewed by the manager of this Project
+#this database related code has been peer reviewed by the manager of this Project 
 
 load_dotenv()  # loads variables from .env file into environment
 
@@ -55,9 +55,9 @@ def delete_menu_item():
 def edit_menu_item():
     # TODO: update with actual params 
     data = request.json
-    item_num = 20  
+    item_num = data['item_num']  
     food = "burrito_marinated-steak"
-    price = 10
+    price = data['price']
     edit_menu_item_by_item_num(connection, item_num,food,price)
     return "Updated menu item", 200
 

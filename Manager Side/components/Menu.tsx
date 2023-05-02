@@ -26,6 +26,8 @@ export default function Inventory() {
 
   const [newItemIngredients, setNewItemIngredients] = useState('');
 
+  const [updatePrice, setUpdatePrice] = useState<{ [item_num: number]: string }>({});
+
   const handleDeleteSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -85,6 +87,36 @@ export default function Inventory() {
     setNewItemIngredients('');
   }
 
+  const handlePriceChange = (item_num: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    setUpdatePrice({
+      ...updatePrice,
+      [item_num]: event.target.value
+    });
+  };
+
+  const handlePriceChangeSubmit = (item_num: number, price: number) => {
+
+      axios.put('http://127.0.0.1:8000/menu/edit', {item_num, price}) 
+        .then(response => {
+          console.log('changed menu item ' + item_num + ' to ' + price)
+
+          axios.get('http://127.0.0.1:8000/menu')
+            .then(response => {
+              setMenuItems(response.data);
+            })
+            .catch(error => {
+              console.error('Error getting menu items:', error);
+            });
+          
+        })
+        .catch(error => console.log(error));
+
+        setUpdatePrice({
+          ...updatePrice,
+          [item_num]: ''
+        });
+  }
+
   const openDeleteForm = () => {
     setShowDeleteForm(true);
   }
@@ -105,11 +137,11 @@ export default function Inventory() {
     console.log("Before axios request");
     axios.get('http://127.0.0.1:8000/menu')
     .then(response => {
-        console.log(response.data);
+        
         setMenuItems(response.data);
     })
     .catch(error => console.log(error));
-    console.log("After axios request");
+
   }, []);
 
 
@@ -165,7 +197,8 @@ export default function Inventory() {
             <td>{item.food}</td>
             <td>${item.price.toFixed(2)}</td>
             <td>
-              <button className='inventoryButton'>Set</button>
+              <input type="text" value={updatePrice[index+1]} onChange={(e) => handlePriceChange(index+1, e)}/>
+              <button className='inventoryButton' onClick={() => handlePriceChangeSubmit(index+1, parseFloat(updatePrice[index+1] || '0'))}>Set</button>
             </td>
             </tr>
         ))}
