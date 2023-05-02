@@ -1,0 +1,117 @@
+.pos-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.pos-menu {
+  width: 50%;
+}
+
+.pos-menu h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.pos-menu table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pos-menu th,
+.pos-menu td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.pos-menu th {
+  font-weight: bold;
+}
+
+.pos-menu td:last-child {
+  text-align: right;
+}
+
+.pos-menu button {
+  background-color: #0099cc;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pos-receipt {
+  width: 45%;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  height: 500px;
+  overflow-y: auto;
+}
+
+.pos-receipt h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.pos-receipt ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pos-receipt li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.pos-receipt span:first-child {
+  flex-basis: 70%;
+}
+
+.pos-receipt span:last-child {
+  font-weight: bold;
+}
+
+.pos-receipt button {
+  background-color: #cc0000;
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.pos-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.pos-confirm button {
+  background-color: #0099cc;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pos-confirmation-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pos-confirmation-message p {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}

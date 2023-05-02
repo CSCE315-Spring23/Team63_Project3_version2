@@ -8,6 +8,7 @@ import Inventory from '@/components/Inventory';
 import Menu from '@/components/Menu';
 import axios from 'axios';
 import userData from './user_data.json';
+import styles from "../styles/Sever.module.css";
 
 interface FoodItem {
   itemNumber: number;
@@ -48,17 +49,27 @@ const Server = () => {
     return cartItems.reduce((total, item) => total + item.price, 0);
   };
 
-  // Confirm order should update the following tables: order history, inventory, z report, and sales.
   const confirmOrder = () => {
     setIsConfirmed(true);
-    
+  
+    const date = prompt("Enter order date (YYYY-MM-DD):");
+    const employeeId = prompt("Enter employee ID:");
+    const customerName = prompt("Enter customer name:");
+  
     const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ingredients: cartItems })
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        employee_id: employeeId,
+        order_date: date,
+        customer_name: customerName,
+        items_list: cartItems,
+        total: calculateTotal(),
+        inventory_list: []
+      })
     };
   
-    fetch('/menu/order', options)
+    fetch("/checkout", options)
       .then(response => {
         // Handle the response
         console.log("Server got the message", response);
@@ -66,8 +77,8 @@ const Server = () => {
       .catch(error => {
         // Handle the error
       });
-
-      setCartItems([]);
+  
+    setCartItems([]);
   };
 
   const confirmAnotherOrder = () => {
@@ -75,8 +86,8 @@ const Server = () => {
   };
 
   return (
-    <div className="pos-container">
-      <div className="pos-menu">
+    <div className={styles["pos-container"]}>
+      <div className={styles["pos-menu"]}>
         <h2>Menu</h2>
         <table>
           <thead>
@@ -90,9 +101,9 @@ const Server = () => {
             {foodItems.map((item) => (
               <tr key={item.itemNumber}>
                 <td>{item.food}</td>
-                <td>${item.price.toFixed(2)}</td>
+                <td className={styles["price"]}>${item.price.toFixed(2)}</td>
                 <td>
-                  <button onClick={() => addToCart(item.food, item.price)}>
+                  <button className={styles["add-button"]} onClick={() => addToCart(item.food, item.price)}>
                     Add
                   </button>
                 </td>
@@ -101,29 +112,29 @@ const Server = () => {
           </tbody>
         </table>
       </div>
-      <div className="pos-receipt">
+      <div className={styles["pos-receipt"]}>
         <h2>Receipt</h2>
         <ul>
           {cartItems.map((item, index) => (
             <li key={index}>
-              <span>{item.food}</span>
-              <span>${item.price.toFixed(2)}</span>
-              <button onClick={() => removeFromCart(index)}>X</button>
+              <span className={styles["item-name"]}>{item.food}</span>
+              <span className={styles["item-price"]}>${item.price.toFixed(2)}</span>
+              <button className={styles["remove-button"]} onClick={() => removeFromCart(index)}>X</button>
             </li>
           ))}
         </ul>
-        <div className="pos-total">
+        <div className={styles["pos-total"]}>
           <span>Total:</span>
-          <span>${calculateTotal().toFixed(2)}</span>
+          <span className={styles["total-price"]}>${calculateTotal().toFixed(2)}</span>
         </div>
         {!isConfirmed ? (
-          <div className="pos-confirm">
-            <button onClick={confirmOrder}>Confirm Order</button>
+          <div className={styles["pos-confirm"]}>
+            <button className={styles["confirm-button"]} onClick={confirmOrder}>Confirm Order</button>
           </div>
         ) : (
-          <div className="pos-confirmation-message">
+          <div className={styles["pos-confirmation-message"]}>
             <p>Your order has been confirmed!</p>
-            <button onClick={confirmAnotherOrder}>Confirm Another Order</button>
+            <button className={styles["confirm-another-button"]} onClick={confirmAnotherOrder}>Confirm Another Order</button>
           </div>
         )}
       </div>

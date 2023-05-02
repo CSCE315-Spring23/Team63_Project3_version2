@@ -127,21 +127,20 @@ def restock_inventory():
     update_inventory_by_item_id(connection, inventory)
     return "Updated inventory item", 200
 
-# Function that updates inventory_table based off of order
 @app.route("/checkout", methods=['POST'])
 def checkout():
-    # get JSON payload from request body
+    # retrieve data from request form
+    employee_id = request.form.get('employee_id')
+    order_date = request.form.get('order_date')
+    customer_name = request.form.get('customer_name')
+    
+    # extract other data from JSON payload
     data = request.get_json()
-
-    # extract data from payload
-    employee_id = data.get('employee_id')
-    order_date = data.get('order_date')
-    customer_name = data.get('customer_name')
     items_list = data.get('items_list')
     total = data.get('total')
     inventory_list = data.get('inventory_list')
 
-    # call checkout_order for each order
+    # call checkout_order for each order to order_history
     for order in items_list:
         checkout_order(connection, employee_id, order_date, customer_name, order, total, inventory_list)
 
