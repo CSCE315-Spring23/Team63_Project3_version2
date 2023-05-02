@@ -55,7 +55,7 @@ export default function XReport() {
         <tbody>
         {xReportItems.map(item => (
             <tr key={uuidv4()}>
-            <td>${item.order}</td>
+            <td>{item.order}</td>
             <td>${item.order_total.toFixed(2)}</td>
             </tr>
         ))}
