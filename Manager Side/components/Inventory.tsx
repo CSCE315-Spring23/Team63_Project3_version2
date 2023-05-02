@@ -17,16 +17,44 @@ export default function Inventory() {
 
   const [inventoryItems, setInventoryItems] = useState<InventoryItem[]>([]);
 
+  const [newQuantities, setNewQuantities] = useState<{ [itemId: number]: string }>({});
+
+  const handleQuantityChange = (itemId: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewQuantities({
+      ...newQuantities,
+      [itemId]: event.target.value
+    });
+  };
+
   useEffect(() => {
-    console.log("Before axios request");
+
     axios.get('http://127.0.0.1:8000/inventory')
     .then(response => {
         console.log(response.data);
         setInventoryItems(response.data);
     })
     .catch(error => console.log(error));
-    console.log("After axios request");
+    
   }, []);
+
+  const handleUpdate = (id: number, quantity: number) => {
+    axios.put(`http://127.0.0.1:8000/inventory/update`, { id, quantity })
+      .then(response => {
+        const updatedInventory = inventoryItems.map(item => {
+          if (item.item_id === id) {
+            return { ...item, quantity: quantity };
+          }
+          return item;
+        });
+        setInventoryItems(updatedInventory);
+      })
+      .catch(error => console.log(error));
+
+      setNewQuantities({
+        ...newQuantities,
+        [id]: ''
+      });
+  };
 
   return (
     <div>
@@ -35,7 +63,7 @@ export default function Inventory() {
         <tr>
             <th>Ingredient Name</th>
             <th>Quantity</th>
-            <th>Price</th>
+            <th>Update</th>
         </tr>
         </thead>
         <tbody>
@@ -43,7 +71,10 @@ export default function Inventory() {
             <tr key={item.item_id}>
             <td>{item.ingredient_name}</td>
             <td>{item.quantity}</td>
-            <td>${item.price.toFixed(2)}</td>
+            <td>
+              <input type="text" value={newQuantities[item.item_id] || ''} onChange={event => handleQuantityChange(item.item_id, event)} />
+              <button className='inventoryButton' onClick={() => handleUpdate(item.item_id, parseFloat(newQuantities[item.item_id] || '0'))}>Set</button>
+            </td>
             </tr>
         ))}
         </tbody>

@@ -5,6 +5,7 @@ from flask import abort
 from backend.entities.inventory_item import InventoryItem
 from backend.entities.inventory_item_extended import InventoryItemExtended
 from backend.entities.order_item import OrderItem
+from backend.entities.sales_item import SalesItem
 from backend.models.inventory_model import InventoryModel
 from backend.models.inventory_status_model import InventoryStatusModel
 from backend.models.order_model import OrderModel
@@ -111,7 +112,14 @@ def get_all_popular_menu_items(connection, start_date: str, end_date: str):
                         popular_menu_items[key] = 1
 
             sorted_popular_menu_items_by_popularity = sorted(popular_menu_items.items(), key=lambda x:x[1], reverse=True)
-            return dict(sorted_popular_menu_items_by_popularity)
+
+            salesTogetherList = []
+            
+            for item in sorted_popular_menu_items_by_popularity:
+                sales_item = SalesItem(item[0], item[1])
+                salesTogetherList.append(sales_item)
+
+            return salesTogetherList
 
 def get_key_from_pair(combo: tuple):
     if combo is None or len(combo) != 2:

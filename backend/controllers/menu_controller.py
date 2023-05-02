@@ -35,7 +35,7 @@ def edit_menu_item_by_item_num(connection, item_num: int, name: str, price:float
             menu = MenuModel()
             menu.edit_menu_item(cursor, item_num, name, price)
 
-def add_new_menu_item(connection, food: str, price: float, ingredients: list[InventoryItem]):
+def add_new_menu_item(connection, food: str, price: float, ingredients: str):
     if food is None or len(food) == 0 or price <=0 or ingredients is None or len(ingredients) == 0:
         return abort(400, description="Missing required attributes.")
     

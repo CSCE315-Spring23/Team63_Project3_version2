@@ -26,4 +26,4 @@ def update_inventory_by_item_id(connection, inventory_item: InventoryItemExtende
     with connection:
         with connection.cursor() as cursor:
             inventory = InventoryModel()
-            inventory.update_inventory(cursor, inventory_item)
+            inventory.update_inventory_quantity(cursor, inventory_item)
