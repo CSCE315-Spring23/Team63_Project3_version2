@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.pos-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.pos-menu {
+  width: 50%;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pos-menu h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.pos-menu table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pos-menu th,
+.pos-menu td {
+  padding: 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.pos-menu th {
+  font-weight: bold;
+}
+
+.pos-menu td:last-child {
+  text-align: right;
+}
+
+.pos-menu button {
+  display: block; /* Add this to make the buttons arranged in rows */
+  background-color: #65706b;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 0.5rem; /* Add this to add some spacing between the buttons */
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+}
+
+.pos-menu button:hover {
+  outline: 2px solid #65706b;
+}
+
+.pos-receipt {
+  width: 45%;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  background-color: #6e4040;
+  color: #fff;
+  height: 500px;
+  overflow-y: auto;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pos-receipt h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.pos-receipt ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pos-receipt li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.pos-receipt span:first-child {
+  flex-basis: 70%;
+}
+
+.pos-receipt span:last-child {
+  font-weight: bold;
+}
+
+.pos-receipt button {
+  background-color: #65706b;
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.pos-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pos-confirm button {
+  background-color: #65706b;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pos-confirmation-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pos-confirmation-message p {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}

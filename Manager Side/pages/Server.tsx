@@ -8,7 +8,7 @@ import Inventory from '@/components/Inventory';
 import Menu from '@/components/Menu';
 import axios from 'axios';
 import userData from './user_data.json';
-import styles from "../styles/Sever.module.css";
+import serverStyles from '../styles/Server.module.css';
 
 interface FoodItem {
   itemNumber: number;
@@ -86,8 +86,8 @@ const Server = () => {
   };
 
   return (
-    <div className={styles["pos-container"]}>
-      <div className={styles["pos-menu"]}>
+    <div className={serverStyles["pos-container"]}>
+      <div className={serverStyles["pos-menu"]}>
         <h2>Menu</h2>
         <table>
           <thead>
@@ -101,9 +101,9 @@ const Server = () => {
             {foodItems.map((item) => (
               <tr key={item.itemNumber}>
                 <td>{item.food}</td>
-                <td className={styles["price"]}>${item.price.toFixed(2)}</td>
+                <td>${item.price.toFixed(2)}</td>
                 <td>
-                  <button className={styles["add-button"]} onClick={() => addToCart(item.food, item.price)}>
+                  <button className={serverStyles["pos-menu-btn"]} onClick={() => addToCart(item.food, item.price)}>
                     Add
                   </button>
                 </td>
@@ -112,29 +112,29 @@ const Server = () => {
           </tbody>
         </table>
       </div>
-      <div className={styles["pos-receipt"]}>
+      <div className={serverStyles["pos-receipt"]}>
         <h2>Receipt</h2>
         <ul>
           {cartItems.map((item, index) => (
             <li key={index}>
-              <span className={styles["item-name"]}>{item.food}</span>
-              <span className={styles["item-price"]}>${item.price.toFixed(2)}</span>
-              <button className={styles["remove-button"]} onClick={() => removeFromCart(index)}>X</button>
+              <span>{item.food}</span>
+              <span>${item.price.toFixed(2)}</span>
+              <button className={serverStyles["pos-receipt-btn"]} onClick={() => removeFromCart(index)}>X</button>
             </li>
           ))}
         </ul>
-        <div className={styles["pos-total"]}>
+        <div className={serverStyles["pos-total"]}>
           <span>Total:</span>
-          <span className={styles["total-price"]}>${calculateTotal().toFixed(2)}</span>
+          <span>${calculateTotal().toFixed(2)}</span>
         </div>
         {!isConfirmed ? (
-          <div className={styles["pos-confirm"]}>
-            <button className={styles["confirm-button"]} onClick={confirmOrder}>Confirm Order</button>
+          <div className={serverStyles["pos-confirm"]}>
+            <button className={serverStyles["pos-confirm-btn"]} onClick={confirmOrder}>Confirm Order</button>
           </div>
         ) : (
-          <div className={styles["pos-confirmation-message"]}>
+          <div className={serverStyles["pos-confirmation-message"]}>
             <p>Your order has been confirmed!</p>
-            <button className={styles["confirm-another-button"]} onClick={confirmAnotherOrder}>Confirm Another Order</button>
+            <button className={serverStyles["pos-confirm-btn"]} onClick={confirmAnotherOrder}>Confirm Another Order</button>
           </div>
         )}
       </div>
