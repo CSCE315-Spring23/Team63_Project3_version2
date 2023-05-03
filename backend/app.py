@@ -45,7 +45,6 @@ def add_menu_item():
     add_new_menu_item(connection, food, price, ingredients)
     return "Added menu item", 201
 
-
 @app.route("/menu/delete", methods = ['DELETE'])
 def delete_menu_item():
     args = request.args.to_dict()
@@ -64,24 +63,6 @@ def edit_menu_item():
 @app.route("/inventory", methods = ['GET'])
 def get_inventory_items():
     return json.dumps(get_all_inventory_items(connection), cls=CustomEncoder), 200
-
-@app.route("/orders/checkout", methods = ['POST'])
-def post_order():
-    # TODO: update with actual params
-    customer_name = "test1"
-    employee_id = 1001   
-    date = "1111-11-12"  #year-month-date
-    itemsList = "chips-and-salsa,chips-and-queso"
-    total = 7.18
-    inventoryList = [
-        # InventoryItem("N/A", "nacho chips", 0.1875),
-        # InventoryItem("N/A", "queso", 0.0625),
-        # InventoryItem("N/A", "corn salsa", 0.0625),
-        # InventoryItem("N/A", "salsa verde", 0.0625),
-        InventoryItem("N/A", "sauce containers", 2.0)
-    ]
-    checkout_order(connection, employee_id, date, customer_name, itemsList, total, inventoryList)
-    return "Order checked out", 201
 
 @app.route("/report/orders/sales", methods = ['GET'])
 def get_orders_between_dates():
@@ -127,22 +108,15 @@ def restock_inventory():
     update_inventory_by_item_id(connection, inventory)
     return "Updated inventory item", 200
 
-@app.route("/checkout", methods=['POST'])
-def checkout():
-    # retrieve data from request form
-    employee_id = request.form.get('employee_id')
-    order_date = request.form.get('order_date')
-    customer_name = request.form.get('customer_name')
-    
-    # extract other data from JSON payload
-    data = request.get_json()
-    items_list = data.get('items_list')
-    total = data.get('total')
-    inventory_list = data.get('inventory_list')
-
-    # call checkout_order for each order to order_history
-    for order in items_list:
-        checkout_order(connection, employee_id, order_date, customer_name, order, total, inventory_list)
-
-    # return success response
-    return "Order(s) processed successfully", 200
+@app.route("/orders/checkout", methods = ['POST'])
+def post_order():
+    # TODO: update with actual params
+    data = request.json
+    customer_name = data['customer_name']
+    employee_id = data['employee_id']
+    date = data['order_date']  #year-month-date
+    itemsList = data['items_list']
+    total = data['total']
+    inventoryList = data['inventoryList']
+    checkout_order(connection, employee_id, date, customer_name, itemsList, total, inventoryList)
+    return "Order checked out", 201

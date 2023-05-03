@@ -21,7 +21,7 @@ def checkout_order(connection, employee_id: int, order_date: str, customer_name:
             
             # add inventory snapshot
             add_inventory_snapshot(cursor, order_date)
-        
+
 def update_inventory(cursor, inventoryList: list[InventoryItem]):
     inventory = InventoryModel()
     for item in inventoryList:
