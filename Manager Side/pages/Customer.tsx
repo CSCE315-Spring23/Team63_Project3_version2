@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from '../styles/Customer.module.css';
+import logo from '../images/cabo_icon.png';
 
 function Customer(): JSX.Element {
 
@@ -104,13 +105,22 @@ function Customer(): JSX.Element {
 
     return (
         <>
-          
+          <style jsx global>{`
+            body{
+              margin: 0;
+              padding: 0;
+              font-family: Poppins;
+              overflow-y: scroll;
+              font-weight: 500;
+              background-color: #9fb0a8;
+            }
+          `}</style>
           {/* Navigation bar */}
           <div className={styles.navbar}>
-            <img src="cabo_icon.png" alt="Logo" />
+            <img className = {styles.logo} src={require('../images/cabo_icon.png')} alt="Logo" />
             <div className={styles.navbar_right}>
-              <a className={styles.navbar_button}>View Menu</a>
-              <a className={styles.navbar_button} href = "GoogleAuth">Staff Login</a>
+              <a className={styles.navbar_button} href = "Menu">View Menu</a>
+              <a className={styles.navbar_button} href = "Manager">Staff Login</a>
             </div>
           </div>
     

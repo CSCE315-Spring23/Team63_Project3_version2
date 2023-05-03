@@ -1,5 +1,4 @@
-
-
+@import './Manager.module.css';
 
 /* Navigation bar */
 .navbar {
@@ -38,6 +37,7 @@
     margin-left: 10px;
     cursor: pointer;
     font-size: 25px;
+    text-decoration: none;
 }
 
 /* Main container */
@@ -55,13 +55,15 @@
 
 .container h1 {
     text-align: left;
+    font-size: 40px;
+    font-weight: 500;
 }
 
 /* Container holding all left-hand side containers */
 .container_of_containers {
     width: 60%;
-    padding: 10px;
-    color: #fff;
+    padding: 20px;
+    color: #fff;  
 }
 
 /* Container holding name of item and its buttons */
@@ -100,7 +102,7 @@
 }
 
 .container_left::-webkit-scrollbar-thumb {
-    background: #c8d6d8;
+    background: #c8d6d6;
     border-radius: 5px;
 }
 
@@ -145,12 +147,17 @@
     position:fixed;
     display: flex;
     flex-direction: column;
-    right: 10%;
-    width: 30%;
+    right: 4%;
+    width: 33%;
     height: 80%;
     padding: 20px;
     background-color: #6e4040;
     color: #fff;
+}
+
+.container_right h2 {
+    font-weight: 500;
+    font-size: 30px
 }
 
 .container_right button {
@@ -158,7 +165,7 @@
     color: #fff;
     border: none;
     padding: 10px 20px;
-
+    width: 50%;
     cursor: pointer;
 }
 

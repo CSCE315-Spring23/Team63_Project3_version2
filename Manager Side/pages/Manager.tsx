@@ -11,6 +11,8 @@ import SalesTogether from '@/components/SalesTogether';
 import Inventory from '@/components/Inventory';
 import Menu from '@/components/Menu';
 
+import styles from "../styles/Manager.module.css";
+
 import axios from 'axios';
 
 import userData from './user_data.json';
@@ -30,13 +32,13 @@ function Manager(): JSX.Element {
     <div className="App">
       {/* Navigation Bar */} 
       <nav>
-        <div className="nav-logo">
+        <div className={styles.nav_logo}>
           <a>Manager Eyes Only ┬┴┬┴┤･_├┬┴┬┴</a>
         </div>
-        <ul className="nav-links">
-          <li className="nav-item">
+        <ul className={styles.nav_links}>
+          <li className={styles.nav_item}>
             <a>Settings</a>
-            <ul className="dropdown-menu">
+            <ul className={styles.dropdown_menu}>
               <li><a href="#" onClick={() => setSelection("inventory")}>Manage Inventory</a></li>
               <li><a href="#" onClick={() => setSelection("menu")}>Update Menu</a></li>
             </ul>
