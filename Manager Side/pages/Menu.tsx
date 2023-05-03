@@ -4,6 +4,10 @@ import axios from 'axios';
 import styles from '../styles/Menu.module.css';
 import logo from '../images/cabo_icon.png';
 
+/**
+ * 
+ * @returns a JSX elemet that returns the Menu Screen
+ */
 function Menu(): JSX.Element {
 
     interface product {

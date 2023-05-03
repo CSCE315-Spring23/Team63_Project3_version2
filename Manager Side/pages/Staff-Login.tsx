@@ -8,6 +8,11 @@ import userData from './user_data.json';
 
 // this code has been peer reviewed by the manager of this Project
 
+/**
+ * 
+ * @returns a JSX elemet that prompts the user to enter either the Manager or Server page
+ */
+
 function Staff(): JSX.Element {
 
 

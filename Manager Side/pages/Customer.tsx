@@ -3,8 +3,15 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from '../styles/Customer.module.css';
 
+/**
+ * 
+ * @returns a JSX elemet that returns the Customer Screen
+ */
 function Customer(): JSX.Element {
 
+    {/**
+      * @returns data structure used to store values from backend
+      */}
     interface product {
         itemNumber: number;
         food: string;

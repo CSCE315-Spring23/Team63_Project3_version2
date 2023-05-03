@@ -1,12 +1,15 @@
-import { GoogleLogin, GoogleLoginResponse } from 'react-google-login';
+import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { useRouter } from 'next/router';
-
+/**
+ * 
+ * @returns Google authentication pop-up
+ */
 const GoogleAuth = () => {
 
     const router = useRouter();
 
 
-  const responseGoogle = (response: GoogleLoginResponse) => {
+  const responseGoogle = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
      //Handle the Google Sign-In response here
     console.log(response);
 
