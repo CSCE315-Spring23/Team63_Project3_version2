@@ -43,15 +43,6 @@ function Staff(): JSX.Element {
           </li>
         </ul>
       </nav>
-
-      {/* Main Content */}
-      <div>
-        </div>
-
-      {/* Footer */}
-      {/* <footer>
-        <p>&copy; 2023 WFHD. All rights reserved.</p>
-      </footer> */}
     </div>
   );
 }

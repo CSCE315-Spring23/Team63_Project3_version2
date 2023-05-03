@@ -3,7 +3,7 @@ from flask import Flask, request
 from flask_cors import CORS
 import os
 import psycopg2
-from dotenv import load_dotenv
+from dotenv import load_dotenv 
 from backend.controllers.custom_encoder import CustomEncoder
 from backend.controllers.inventory_controller import get_all_inventory_items, update_inventory_by_item_id
 from backend.controllers.manager_controller import get_all_popular_menu_items, get_all_restock_inventory_items, get_inventory_excess_report, get_total_sales_by_date
@@ -13,7 +13,7 @@ from backend.controllers.server_controller import checkout_order
 from backend.entities.inventory_item import InventoryItem
 from backend.entities.inventory_item_extended import InventoryItemExtended
 
-#this database related code has been peer reviewed by the manager of this Project
+#this database related code has been peer reviewed by the manager of this Project 
 
 load_dotenv()  # loads variables from .env file into environment
 
@@ -28,36 +28,36 @@ port = os.environ.get("PORT")
 host = os.environ.get("HOST")
 connection = psycopg2.connect(database=database, user=user_name, password=password, host=host, port=port)
 
-@app.route("/menu", methods = ['GET'])
+@app.route("/menu", methods = ['GET']) 
 def get_menu_items():
     return json.dumps(get_all_menu_items(connection), cls=CustomEncoder), 200
 
 @app.route("/menu/add", methods = ['POST'])
 def add_menu_item():
-    # TODO: update with actual params
-    food = "test-food"
-    price = 9.19
-    ingredients = [
-        InventoryItem("n/a", "test 1", 2.0),
-        InventoryItem("n/a", "test 2", 2.0)
-    ]
+    
+    data = request.json
+    food = data['newItemName']
+    price = data['price']
+    ingredients = data['newItemIngredients']
+
     #print(request.json.get('food'))
     add_new_menu_item(connection, food, price, ingredients)
-    return "Added menu item", 201
+    return "Added menu item", 201 
 
-
-@app.route("/menu/delete", methods = ['DELETE'])
-def delete_menu_item():
+ 
+@app.route("/menu/delete", methods = ['DELETE']) 
+def delete_menu_item():   
     args = request.args.to_dict()
     delete_menu_item_by_item_num(connection, args.get("itemNum"))
     return "Deleted menu item", 200
-
+ 
 @app.route("/menu/edit", methods = ['PUT'])
 def edit_menu_item():
-    # TODO: update with actual params
-    item_num = 2
+    # TODO: update with actual params 
+    data = request.json
+    item_num = data['item_num']  
     food = "burrito_marinated-steak"
-    price = 9.19
+    price = data['price']
     edit_menu_item_by_item_num(connection, item_num,food,price)
     return "Updated menu item", 200
 
@@ -77,7 +77,7 @@ def post_order():
         # InventoryItem("N/A", "nacho chips", 0.1875),
         # InventoryItem("N/A", "queso", 0.0625),
         # InventoryItem("N/A", "corn salsa", 0.0625),
-        # InventoryItem("N/A", "salsa verde", 0.0625),
+        # InventoryItem("N/A", "salsa verde", 0.0625), 
         InventoryItem("N/A", "sauce containers", 2.0)
     ]
     checkout_order(connection, employee_id, date, customer_name, itemsList, total, inventoryList)
@@ -93,16 +93,16 @@ def get_orders_by_date():
     args = request.args.to_dict()
     return json.dumps(get_all_orders_by_date(connection, args.get('orderDate')), cls=CustomEncoder), 200
 
-@app.route("/report/inventory/restock", methods = ['GET'])
+@app.route("/report/inventory/restock", methods = ['GET']) 
 def get_restock_inventory_items():
     return json.dumps(get_all_restock_inventory_items(connection), cls=CustomEncoder), 200
 
-@app.route("/report/orders/z", methods = ['GET'])
-def get_z_report():
-    args = request.args.to_dict()
+@app.route("/report/orders/z", methods = ['GET']) 
+def get_z_report(): 
+    args = request.args.to_dict()   
     return json.dumps(get_total_sales_by_date(connection, args.get('salesDate'))), 200
 
-@app.route("/report/inventory/excess", methods = ['GET'])
+@app.route("/report/inventory/excess", methods = ['GET'])   
 def get_excess_report():
     args = request.args.to_dict()
     return json.dumps(get_inventory_excess_report(connection, args.get('inventoryDate')), cls=CustomEncoder), 200
@@ -116,9 +116,10 @@ def get_popular_menu_items():
 @app.route("/inventory/update", methods=['PUT'])
 def restock_inventory():
     # TODO: update with actual params
-    item_id = 139205
+    data = request.get_json()
+    item_id = data.get("id")
     ingredient_name = "chipotle sauce"
-    quantity = 6.0 
+    quantity = data.get("quantity")
     price = 10.0 
     vendor_name = "heb"
     units = "oz"

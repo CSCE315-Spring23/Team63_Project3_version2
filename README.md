@@ -18,3 +18,8 @@
 1. Navigate to backend directory (not the one in server/manager view).
 2. Activate your virtual environment - `.venv\Scripts\activate` or `source .venv/bin/activate` on mac
 3. `flask run` and click on url given on terminal
+
+## Backend
+04/30/2023 - 11:19pm, a dark and not so stormy night:
+- To get the updated version of our app, when you clone it, they're some dependencies to install:
+1. yarn add react-google-login

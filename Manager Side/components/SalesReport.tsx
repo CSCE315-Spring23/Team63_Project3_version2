@@ -63,8 +63,8 @@ export default function SalesReport() {
             </tr>
           </thead>
           <tbody>
-            {salesData.map((sale) => (
-              <tr key={sale.order}>
+            {salesData.map((sale, index) => (
+              <tr key={index}>
                 <td>{sale.order}</td>
                 <td>{sale.order_total}</td>
               </tr>

@@ -7,6 +7,7 @@ import RestockReport from '@/components/RestockReport';
 import ExcessReport from '@/components/ExcessReport';
 import ZReport from '@/components/ZReport';
 import SalesReport from '@/components/SalesReport';
+import SalesTogether from '@/components/SalesTogether';
 import Inventory from '@/components/Inventory';
 import Menu from '@/components/Menu';
 
@@ -51,7 +52,7 @@ function Manager(): JSX.Element {
             </ul>
           </li>
           <li className="nav-item">
-            <a href="#">Order History</a>
+            <a href="#" onClick={() => setSelection("salesTogether")}>Sales Together</a>
           </li>
         </ul>
       </nav>
@@ -69,7 +70,7 @@ function Manager(): JSX.Element {
         {selection == "excess_report" && <ExcessReport/>}
         {selection == "inventory" && <Inventory/>}
         {selection == "menu" && <Menu/>}
-        
+        {selection == 'salesTogether' && <SalesTogether/>}
         </div>
 
       {/* Footer */}
