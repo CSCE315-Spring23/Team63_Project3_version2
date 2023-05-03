@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from '../styles/Menu.module.css';
 import logo from '../images/cabo_icon.png';
+import { useWeather } from '@/hooks/useWeather';
+import WeatherBar from '@/components/WeatherBar';
+
 
 function Menu(): JSX.Element {
 
@@ -26,20 +29,20 @@ function Menu(): JSX.Element {
     // fetchProduct is an async function that shows if items are loading in (test function) but also loads in data from products 
     useEffect(() => {
         const fetchProduct = async () => {
-          setIsLoading(true);
-          console.log("Before axios request");
-          try {
-            const response = await axios.get("http://127.0.0.1:8000/menu");
-            console.log(response.data);
-            setProducts(response.data);
-          } catch (error) {
-            console.log(error);
-          }
-          setIsLoading(false);
-          console.log("After axios request");
+            setIsLoading(true);
+            console.log("Before axios request");
+            try {
+                const response = await axios.get("http://127.0.0.1:8000/menu");
+                console.log(response.data);
+                setProducts(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+            setIsLoading(false);
+            console.log("After axios request");
         };
         fetchProduct();
-      }, []);
+    }, []);
 
     /*
 
@@ -48,16 +51,16 @@ function Menu(): JSX.Element {
     
     */
 
-    const addProductToCart = async(product: product) =>{
-        let findProductInCart = await cart.find(i=>{
+    const addProductToCart = async (product: product) => {
+        let findProductInCart = await cart.find(i => {
             return i.itemNumber == product.itemNumber
         });
 
-        if(findProductInCart) {
+        if (findProductInCart) {
             let newCart: product[] = [];
             let newItem;
-            cart.forEach(cartItem =>{
-                if(cartItem.itemNumber == product.itemNumber) {
+            cart.forEach(cartItem => {
+                if (cartItem.itemNumber == product.itemNumber) {
                     newItem = {
                         ...cartItem,
                         quantity: cartItem.quantity + 1,
@@ -88,10 +91,13 @@ function Menu(): JSX.Element {
 
     const burritos = products.filter(product => product.type === 'burrito' || true);
     const numBurritos = burritos.length;
-    
+    const { weatherData, loading } = useWeather();
+
     return (
         <>
-          <style jsx global>{`
+            {/* Weather Bar */}
+            {loading ? <div>Loading weather data...</div> : <WeatherBar weatherData={weatherData} />}
+            <style jsx global>{`
             body{
               margin: 0;
               padding: 0;
@@ -103,133 +109,133 @@ function Menu(): JSX.Element {
           `}</style>
             {/* Navigation bar */}
             <div className={styles.navbar}>
-                <img className={styles.logo} src="cabo_logo.jpg" alt="Welcome To Cabo!"/>
+                <img className={styles.logo} src="cabo_logo.jpg" alt="Welcome To Cabo!" />
                 <div className={styles.navbar_right}>
-                  <a className={styles.navbar_button} href = "Customer">Back to Order</a>
+                    <a className={styles.navbar_button} href="Customer">Back to Order</a>
                 </div>
             </div>
 
             {/* Body */}
             <div className={styles.container}>
-            <div className = {styles.container_of_containers}>
+                <div className={styles.container_of_containers}>
 
-                <h1>Entrees: Make your own for $10.99 or check out our options!</h1>
-              
-                {/* Bowls */}
-                <h3> Bowls: </h3> 
-                
-                    {isLoading ? 'Loading' : <div className = {styles.container_left}> 
-                                            <div className = {styles.animation}>
-                    {products.map((product, key) =>
-                    
-                        <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
-                            <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                            <div className = {styles.product_info}>
-                                <p className = {styles.product_name}>{product.food}</p>
-                                <p className = {styles.product_price}>${product.price}</p>
-                            </div>
-                        </button>
-                    )}
-                    </div>
+                    <h1>Entrees: Make your own for $10.99 or check out our options!</h1>
+
+                    {/* Bowls */}
+                    <h3> Bowls: </h3>
+
+                    {isLoading ? 'Loading' : <div className={styles.container_left}>
+                        <div className={styles.animation}>
+                            {products.map((product, key) =>
+
+                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
+                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
+                                    <div className={styles.product_info}>
+                                        <p className={styles.product_name}>{product.food}</p>
+                                        <p className={styles.product_price}>${product.price}</p>
+                                    </div>
+                                </button>
+                            )}
+                        </div>
                     </div>}
-                
 
-                {/* Burritos */}
-                <h3> Burritos </h3>
-                {isLoading ? 'Loading' : <div className = {styles.container_left}>
-                                        <div className = {styles.animation}>
-                {products.map((product, key) =>
-                    <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
-                        <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                        <div className = {styles.product_info}>
-                            <p className = {styles.product_name}>{product.food}</p>
-                            <p className = {styles.product_price}>${product.price}</p>
-                        </div>
-                    </button>
-                    )}
-                </div>
-                </div>}
 
-                {/* Tacos */}
-                <h3> Tacos </h3>
-                {isLoading ? 'Loading' : <div className = {styles.container_left}>
-                                        <div className = {styles.animation}>
-                {products.map((product, key) =>
-                    <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
-                        <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                        <div className = {styles.product_info}>
-                            <p className = {styles.product_name}>{product.food}</p>
-                            <p className = {styles.product_price}>${product.price}</p>
+                    {/* Burritos */}
+                    <h3> Burritos </h3>
+                    {isLoading ? 'Loading' : <div className={styles.container_left}>
+                        <div className={styles.animation}>
+                            {products.map((product, key) =>
+                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
+                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
+                                    <div className={styles.product_info}>
+                                        <p className={styles.product_name}>{product.food}</p>
+                                        <p className={styles.product_price}>${product.price}</p>
+                                    </div>
+                                </button>
+                            )}
                         </div>
-                    </button>
-                )}
-                </div>
-                </div>}
+                    </div>}
 
-                {/* Other */}
-                <h1> Sides </h1>
-                {isLoading ? 'Loading' : <div className = {styles.container_left}>
-                                        <div className = {styles.animation}>
-                {products.map((product, key) =>
-                    <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
-                        <img src={product.image} className= {styles.img_fluid} alt={product.food} />
-                        <div className = {styles.product_info}>
-                            <p className = {styles.product_name}>{product.food}</p>
-                            <p className = {styles.product_price}>${product.price}</p>
+                    {/* Tacos */}
+                    <h3> Tacos </h3>
+                    {isLoading ? 'Loading' : <div className={styles.container_left}>
+                        <div className={styles.animation}>
+                            {products.map((product, key) =>
+                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
+                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
+                                    <div className={styles.product_info}>
+                                        <p className={styles.product_name}>{product.food}</p>
+                                        <p className={styles.product_price}>${product.price}</p>
+                                    </div>
+                                </button>
+                            )}
                         </div>
-                    </button>
-                )}
+                    </div>}
+
+                    {/* Other */}
+                    <h1> Sides </h1>
+                    {isLoading ? 'Loading' : <div className={styles.container_left}>
+                        <div className={styles.animation}>
+                            {products.map((product, key) =>
+                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
+                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
+                                    <div className={styles.product_info}>
+                                        <p className={styles.product_name}>{product.food}</p>
+                                        <p className={styles.product_price}>${product.price}</p>
+                                    </div>
+                                </button>
+                            )}
+                        </div>
+                    </div>}
                 </div>
-                </div>}
+
+                <div className={styles.container_of_containers}>
+                    <h1>Other</h1>
+                    {isLoading ? 'Loading' : <div className={styles.container_left}>
+                        <div className={styles.animation}>
+                            {products.map((product, key) =>
+                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
+                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
+                                    <div className={styles.product_info}>
+                                        <p className={styles.product_name}>{product.food}</p>
+                                        <p className={styles.product_price}>${product.price}</p>
+                                    </div>
+                                </button>
+                            )}
+                        </div>
+                    </div>}
+                </div>
+
+                <div className={styles.container_of_containers}>
+                    <h1>Extras</h1>
+                    {isLoading ? 'Loading' : <div className={styles.container_left}>
+                        <div className={styles.animation}>
+                            {products.map((product, key) =>
+                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
+                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
+                                    <div className={styles.product_info}>
+                                        <p className={styles.product_name}>{product.food}</p>
+                                        <p className={styles.product_price}>${product.price}</p>
+                                    </div>
+                                </button>
+                            )}
+                        </div>
+                    </div>}
+                </div>
+
+                {/* Right Container */}
+                <div className={styles.container_right}>
+                    <h2>Daily Deals</h2>
+                    <div className={styles.special_details}>
+                        <ul>
+                            <li>50% off Tacos</li>
+                            <li>Free drink when you buy any side!</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-
-            <div className = {styles.container_of_containers}>
-                <h1>Other</h1>
-                {isLoading ? 'Loading' : <div className = {styles.container_left}>
-                                        <div className = {styles.animation}>
-                {products.map((product, key) =>
-                    <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
-                        <img src={product.image} className= {styles.img_fluid} alt={product.food} />
-                        <div className = {styles.product_info}>
-                            <p className = {styles.product_name}>{product.food}</p>
-                            <p className = {styles.product_price}>${product.price}</p>
-                        </div>
-                    </button>
-                )}
-                </div>
-                </div>}
-            </div>
-
-            <div className = {styles.container_of_containers}>
-                <h1>Extras</h1>
-                {isLoading ? 'Loading' : <div className = {styles.container_left}>
-                                        <div className = {styles.animation}>
-                {products.map((product, key) =>
-                    <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
-                        <img src={product.image} className= {styles.img_fluid} alt={product.food} />
-                        <div className = {styles.product_info}>
-                            <p className = {styles.product_name}>{product.food}</p>
-                            <p className = {styles.product_price}>${product.price}</p>
-                        </div>
-                    </button>
-                )}
-                </div>
-                </div>}
-            </div>
-
-            {/* Right Container */}
-            <div className={styles.container_right}>
-                <h2>Daily Deals</h2>
-                <div className={styles.special_details}>
-                  <ul>
-                    <li>50% off Tacos</li>
-                    <li>Free drink when you buy any side!</li>
-                  </ul>
-                </div>
-            </div>
-        </div>
-      </>
-      )
+        </>
+    )
 
 
 }

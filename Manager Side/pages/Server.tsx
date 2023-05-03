@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import userData from './user_data.json';
 import serverStyles from '../styles/Server.module.css';
+import { useWeather } from '@/hooks/useWeather';
+import WeatherBar from '@/components/WeatherBar';
+
 
 interface FoodItem {
   itemNumber: number;
@@ -78,8 +81,13 @@ const Server = () => {
     setIsConfirmed(false);
   };
 
+  const { weatherData, loading } = useWeather();
+
   return (
+    
     <div className={serverStyles["pos-container"]}>
+      {/* Weather Bar */}
+      {loading ? <div>Loading weather data...</div> : <WeatherBar weatherData={weatherData} />}
       <div className={serverStyles["pos-menu"]}>
         <h2>Menu</h2>
         <table>
