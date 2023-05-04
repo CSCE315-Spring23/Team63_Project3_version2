@@ -30,6 +30,7 @@ function Manager(): JSX.Element {
 
   return (
     <>
+    
     <div className="App">
       {/* Navigation Bar */} 
       <nav>

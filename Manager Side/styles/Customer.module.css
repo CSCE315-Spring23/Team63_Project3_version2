@@ -142,6 +142,7 @@
 }
 
 .container_right {
+    top: 130px;
     position:fixed;
     display: flex;
     flex-direction: column;

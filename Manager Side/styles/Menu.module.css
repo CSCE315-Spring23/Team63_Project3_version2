@@ -1,4 +1,5 @@
 /* Navigation bar */
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -39,7 +40,7 @@
 /* Main container */
 .container {
     position:relative;
-    top: 60px;
+    top:60px;
     display: flex;
     flex-wrap: wrap;
     padding: 30px;
@@ -210,9 +211,10 @@
 }
 
 .container_right {
-    position:fixed;
+    position: fixed;
     display: flex;
     flex-direction: column;
+    top: 130px;
     right: 3%;
     width: 30%;
     height: 80%;

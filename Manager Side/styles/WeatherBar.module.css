@@ -1,10 +1,27 @@
 .weatherBar {
+    width: 100%;
+    margin-top: 60px;
     display: flex;
     align-items: center;
     height: 70px;
-    background-color: rgba(255, 255, 255, 0.1); /* Change the opacity value as needed */
+    background-color: rgba(255, 255, 255, 0.1);
     padding: 0 20px;
+    z-index: 100;
   }
+
+    /* .weatherBar {
+    position: fixed;
+    margin-bottom: 50px;
+    width:100%;
+    top: 60px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    background-color: rgba(255, 255, 255, 0.1); 
+    padding: 0 20px;
+    z-index:10; 
+    } */
+
   
   .weatherInfo {
     display: flex;

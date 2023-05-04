@@ -120,9 +120,11 @@ nav {
 }
 
 #google_translate_element{
-  
+  position: fixed;
+  bottom: 0px;
   height: 50px;
   overflow: hidden;
+  z-index: 10;
 
 }
 

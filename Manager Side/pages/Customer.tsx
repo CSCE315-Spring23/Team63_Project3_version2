@@ -101,35 +101,54 @@ function Customer(): JSX.Element {
   
   */
 
-  const addProductToCart = async (product: product) => {
-    let findProductInCart = await cart.find(i => {
-      return i.itemNumber == product.itemNumber
+  const addProductToCart = async(product: product) =>{
+    let findProductInCart = await cart.find(i=>{
+        return i.itemNumber == product.itemNumber
     });
 
-    if (findProductInCart) {
-      let newCart: product[] = [];
-      let newItem;
-      cart.forEach(cartItem => {
-        if (cartItem.itemNumber == product.itemNumber) {
-          newItem = {
-            ...cartItem,
-            quantity: cartItem.quantity + 1,
-            totalAmount: cartItem.price * (cartItem.quantity + 1)
-          }
+    if(findProductInCart) {
+        let newCart: product[] = [];
+        let newItem;
+        cart.forEach(cartItem =>{
+            if(cartItem.itemNumber == product.itemNumber) {
+                newItem = {
+                    ...cartItem,
+                    quantity: cartItem.quantity + 1,
+                    totalAmount: cartItem.price * (cartItem.quantity + 1)
+                }
 
-          newCart.push(newItem);
-        }
-        else {
-          newCart.push(cartItem);
-        }
-      });
+                newCart.push(newItem);
+            }
+            else {
+                newCart.push(cartItem);
+            }
+        });
 
-      setCart(newCart);
+        setCart(newCart);
     }
+    else {
+        let addingProduct = {
+            ...product,
+            'quantity': 1,
+            'totalAmount': product.price,
+        }
+
+        setCart([...cart, addingProduct]);
+    }
+}
+
+  // removes all items in cart
+  const removeAllProductsFromCart = async() => {
+    setCart([]);
+    setTotalAmount(0);
+}
 
 
+const { weatherData, loading } = useWeather();
     return (
+
         <>
+
           <style jsx global>{`
             body{
               margin: 0;
@@ -145,11 +164,14 @@ function Customer(): JSX.Element {
           <div className={styles.navbar}>
             <img src="cabo_icon.png" alt="Logo" />
             <div className={styles.navbar_right}>
-              <a className={styles.navbar_button}>View Menu</a>
+              <a href = 'Menu' className={styles.navbar_button}>View Menu</a>
               <a className={styles.navbar_button} href = "GoogleAuth">Staff Login</a>
             </div>
           </div>
     
+          {loading ? <div className = 'weatherBar'>Loading weather data...</div> : <WeatherBar weatherData={weatherData} />}
+
+
           {/* Body */}
           <div className={styles.container}>
             <div className = {styles.container_of_containers}>
@@ -253,12 +275,10 @@ function Customer(): JSX.Element {
               <div className = {styles.button_panel}>
                 <h2>Total Amount: ${totalAmount.toFixed(2)}</h2>
                 <button className={styles.cancel} onClick={removeAllProductsFromCart}>Cancel</button>
-                <button className={styles.confirm}>Confirm</button>
+                <button className={styles.confirm} onClick={removeAllProductsFromCart}>Confirm</button>
               </div>
             </div>
           </div>
-        </div>
-      </div>
     </>
   )
 

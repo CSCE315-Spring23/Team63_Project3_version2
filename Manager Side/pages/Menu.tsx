@@ -126,7 +126,6 @@ function Menu(): JSX.Element {
     return (
         <>
             {/* Weather Bar */}
-            {loading ? <div>Loading weather data...</div> : <WeatherBar weatherData={weatherData} />}
             <style jsx global>{`
             body{
               margin: 0;
@@ -214,9 +213,11 @@ function Menu(): JSX.Element {
                             <p className = {styles.product_name}>{product.food}</p>
                             <p className = {styles.product_price}>${product.price}</p>
                         </div>
-                    </div>}
+                    </button>
+                )}
                 </div>
-
+                </div>}
+                </div>
 
                 {/* Right Container */}
                 <div className={styles.container_right}>
@@ -228,11 +229,9 @@ function Menu(): JSX.Element {
                         </ul>
                     </div>
                 </div>
+
             </div>
         </>
     )
-
-
 }
-
 export default Menu;
