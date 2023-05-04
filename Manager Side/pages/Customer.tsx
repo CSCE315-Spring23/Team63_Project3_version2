@@ -6,7 +6,60 @@ import { useWeather } from '@/hooks/useWeather';
 import WeatherBar from '@/components/WeatherBar';
 
 
+/**
+ * 
+ * @returns a JSX elemet that returns the Customer Screen
+ * variables:
+ * interface product - a data structure that holds values from the backend
+ * cart - stores array of product selected by customer
+ * products - array of products to display
+ * isLoading - boolean to determine if backend information is loading
+ * totalAmount - total amount of a certain item selected by a user
+ * 
+ * 
+ */
 function Customer(): JSX.Element {
+
+    {
+      /**
+      * @component data structure used to store values from backend
+      * 
+      */
+     }
+    interface product {
+        itemNumber: number;
+        food: string;
+        price: number;
+        image: string;
+        totalAmount: number;
+        quantity: number;
+    }
+
+    const [myMap, setMyMap] = useState(new Map([[1, "https://media.istockphoto.com/id/1317280854/photo/mexican-rice-and-chicken-burrito.jpg?s=612x612&w=is&k=20&c=yhM5t2gNIA_NJi1IwVVUcFK7OghxZyFWCS-Tz1GAMUQ="], 
+                                                [2, "https://media.istockphoto.com/id/475556736/photo/two-beef-steak-burritos.jpg?s=612x612&w=is&k=20&c=pzkVJ2V8vRSVafrJFXuRyBW7A0PJul_YG2VC0F0wKwc="],
+                                                [3, "https://media.istockphoto.com/id/117179418/photo/burrito.jpg?s=612x612&w=is&k=20&c=I6-mKVDMQjhhmOpGTaJCxwNTVKghHJKOanbIHBLeUAY="],
+                                                [4, "https://cdn.pixabay.com/photo/2018/07/01/16/00/eating-3509799_1280.jpg"],
+                                                [5, "https://cdn.pixabay.com/photo/2015/05/31/13/02/salad-791643_1280.jpg"],
+                                                [6, "https://cdn.pixabay.com/photo/2017/11/24/17/30/steak-2975331_1280.jpg"],
+                                                [7, "https://cdn.pixabay.com/photo/2022/11/28/17/07/meatballs-7622499_1280.jpg"],
+                                                [8, "https://cdn.pixabay.com/photo/2016/11/22/18/58/bowl-1850039_1280.jpg"],
+                                                [9, "https://cdn.pixabay.com/photo/2019/09/28/16/55/tacos-4511272_1280.jpg"],
+                                                [10, "https://cdn.pixabay.com/photo/2019/05/31/01/52/tacos-4241262_1280.jpg"],
+                                                [11, "https://cdn.pixabay.com/photo/2015/11/02/20/27/taco-1018962_1280.jpg"],
+                                                [12, "https://cdn.pixabay.com/photo/2016/01/20/20/50/tacos-1152345_1280.jpg"],
+                                                [13, "https://cdn.pixabay.com/photo/2016/06/12/15/56/avocado-1452326_1280.jpg"],
+                                                [14, "https://cdn.pixabay.com/photo/2020/09/02/17/49/nachos-5539014_1280.jpg"],
+                                                [15, "https://cdn.pixabay.com/photo/2017/05/30/19/30/california-2357953_1280.jpg"],
+                                                [16, "https://cdn.pixabay.com/photo/2014/09/26/19/51/drink-462776_1280.jpg"],
+                                                [17, "https://cdn.pixabay.com/photo/2016/11/19/20/55/apples-1841132_1280.jpg"],
+                                                [18, "https://cdn.pixabay.com/photo/2016/11/19/20/55/apples-1841132_1280.jpg"],
+                                                [19, "https://cdn.pixabay.com/photo/2016/11/19/20/55/apples-1841132_1280.jpg"],
+                                                [20, "https://cdn.pixabay.com/photo/2020/03/03/09/20/skittles-4898096_1280.jpg"]
+                                                ]));
+
+    function getValue(key: number) {
+      return myMap.get(key);
+    }
 
   interface product {
     itemNumber: number;
@@ -73,153 +126,136 @@ function Customer(): JSX.Element {
 
       setCart(newCart);
     }
-    else {
-      let addingProduct = {
-        ...product,
-        'quantity': 1,
-        'totalAmount': product.price,
-      }
 
-      setCart([...cart, addingProduct]);
-    }
-  }
 
-  // useEffect(() => {
-  //     fetchProduct();
-  // },[]);
-
-  // keeps track of total amount
-  useEffect(() => {
-    let newTotalAmount = 0;
-    cart.forEach(icart => {
-      const temp_total = icart.totalAmount;
-      newTotalAmount += parseFloat(temp_total.toFixed(2));
-    })
-    setTotalAmount(parseFloat(newTotalAmount.toFixed(2)));
-  }, [cart])
-
-  // removes all items in cart
-  const removeAllProductsFromCart = async () => {
-    setCart([]);
-    setTotalAmount(0);
-  }
-  const { weatherData, loading } = useWeather();
-
-  return (
-    <>
-      {/* Weather Bar */}
-      {loading ? <div>Loading weather data...</div> : <WeatherBar weatherData={weatherData} />}
-      {/* Navigation bar */}
-      <div className={styles.navbar}>
-        <img src="cabo_icon.png" alt="Logo" />
-        <div className={styles.navbar_right}>
-          <a className={styles.navbar_button}>View Menu</a>
-          <a className={styles.navbar_button} href="GoogleAuth">Staff Login</a>
-        </div>
-      </div>
-
-      {/* Body */}
-      <div className={styles.container}>
-        <div className={styles.container_of_containers}>
-
-          {/* add before map */}
-          {/* filter((product) => product.type === 'other'). */}
-
-          {/* Bowls */}
-          <h1> Bowls </h1>
-          {isLoading ? 'Loading' : <div className={styles.container_left}>
-            <button className={styles.custom_button}> Make-Your-Own Bowl </button>
-            {products.map((product, key) =>
-
-              <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
-                <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                <div className={styles.product_info}>
-                  <h3 className={styles.product_name}>{product.food}</h3>
-                  <p className={styles.product_price}>${product.price}</p>
-                </div>
-              </button>
-            )}
-          </div>}
-
-          {/* Burritos */}
-          <h1> Burritos </h1>
-          {isLoading ? 'Loading' : <div className={styles.container_left}>
-            <button className={styles.custom_button}> Make-Your-Own Burrito </button>
-            {products.map((product, key) =>
-              <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
-                <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                <div className={styles.product_info}>
-                  <h3 className={styles.product_name}>{product.food}</h3>
-                  <p className={styles.product_price}>${product.price}</p>
-                </div>
-              </button>
-            )}
-          </div>}
-
-          {/* Tacos */}
-          <h1> Tacos </h1>
-          {isLoading ? 'Loading' : <div className={styles.container_left}>
-            <button className={styles.custom_button}> Make-Your-Own Taco </button>
-            {products.map((product, key) =>
-              <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
-                <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                <div className={styles.product_info}>
-                  <h3 className={styles.product_name}>{product.food}</h3>
-                  <p className={styles.product_price}>${product.price}</p>
-                </div>
-              </button>
-            )}
-          </div>}
-
-          {/* Other */}
-          <h1> Other </h1>
-          {isLoading ? 'Loading' : <div className={styles.container_left}>
-            {products.map((product, key) =>
-              <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
-                <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                <div className={styles.product_info}>
-                  <h3 className={styles.product_name}>{product.food}</h3>
-                  <p className={styles.product_price}>${product.price}</p>
-                </div>
-              </button>
-            )}
-          </div>}
-        </div>
-
-        {/* Right Container */}
-        <div className={styles.container_right}>
-          <h2>Order Details</h2>
-          <div className={styles.order_details}>
-
-            {/* table */}
-            <table className={styles.order_table}>
-              <thead className={styles.table_head}>
-                <tr>
-                  {/* <td>#</td> */}
-                  <td className={styles.table_desc}>Name</td>
-                  <td className={styles.table_desc}>Price</td>
-                  <td className={styles.table_desc}>Qty</td>
-                  <td className={styles.table_desc}>Amount</td>
-                </tr>
-              </thead>
-              <tbody>
-                {cart ? cart.map((cartProduct, key) => <tr>
-                  {/* <td>{cartProduct.id}</td> */}
-                  <td className={styles.table_desc}>{cartProduct.food}</td>
-                  <td className={styles.table_desc}>{cartProduct.price}</td>
-                  <td className={styles.table_desc}>{cartProduct.quantity}</td>
-                  <td className={styles.table_desc}>{(cartProduct.totalAmount * 100 / 100).toFixed(2)}</td>
-                </tr>)
-                  : 'No Item in Cart'}
-              </tbody>
-            </table>
+    return (
+        <>
+          <style jsx global>{`
+            body{
+              margin: 0;
+              padding: 0;
+              font-family: Poppins;
+              overflow-y: scroll;
+              font-weight: 500;
+              background-color: #9fb0a8;
+            }
+          `}</style>
+          
+          {/* Navigation bar */}
+          <div className={styles.navbar}>
+            <img src="cabo_icon.png" alt="Logo" />
+            <div className={styles.navbar_right}>
+              <a className={styles.navbar_button}>View Menu</a>
+              <a className={styles.navbar_button} href = "GoogleAuth">Staff Login</a>
+            </div>
           </div>
+    
+          {/* Body */}
+          <div className={styles.container}>
+            <div className = {styles.container_of_containers}>
 
-          {/* button panel */}
-          <div className={styles.button_panel}>
-            <h2>Total Amount: ${totalAmount.toFixed(2)}</h2>
-            <button className={styles.cancel} onClick={removeAllProductsFromCart}>Cancel</button>
-            <button className={styles.confirm}>Confirm</button>
+              {/* add before map */}
+              {/* filter((product) => product.type === 'other'). */}
+              
+              {/* Bowls */}
+              <h1> Bowls </h1> 
+              {isLoading ? 'Loading' : <div className={styles.container_left}> 
+                                       {/* <button className={styles.custom_button}> Make-Your-Own Bowl </button> */}
+                {products.filter((product) => product.food.toLowerCase().includes('bowl')).map((product, key) =>
+                  
+                  <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
+                    <img src={getValue(product.itemNumber)} className={styles.img_fluid} alt={product.food} />
+                    <div className = {styles.product_info}>
+                      <h3 className = {styles.product_name}>{product.food}</h3>
+                      <p className = {styles.product_price}>${product.price}</p>
+                    </div>
+                  </button>
+                )}
+              </div>}
+
+              {/* Burritos */}
+              <h1> Burritos </h1>
+              {isLoading ? 'Loading' : <div className = {styles.container_left}>
+                                       {/* <button className = {styles.custom_button}> Make-Your-Own Burrito </button> */}
+                {products.filter((product) => product.food.toLowerCase().includes('burrito')).map((product, key) =>
+                    <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
+                      <img src={getValue(product.itemNumber)} className={styles.img_fluid} alt={product.food} />
+                      <div className = {styles.product_info}>
+                        <h3 className = {styles.product_name}>{product.food}</h3>
+                        <p className = {styles.product_price}>${product.price}</p>
+                      </div>
+                    </button>
+                )}
+              </div>}
+
+              {/* Tacos */}
+              <h1> Tacos </h1>
+              {isLoading ? 'Loading' : <div className = {styles.container_left}>
+                                       {/* <button className = {styles.custom_button}> Make-Your-Own Taco </button> */}
+                {products.filter((product) => product.food.toLowerCase().includes('taco')).map((product, key) =>
+                    <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
+                      <img src={getValue(product.itemNumber)} className={styles.img_fluid} alt={product.food} />
+                      <div className = {styles.product_info}>
+                        <h3 className = {styles.product_name}>{product.food}</h3>
+                        <p className = {styles.product_price}>${product.price}</p>
+                      </div>
+                    </button>
+                )}
+              </div>}
+
+              {/* Other */}
+              <h1> Other </h1>
+              {isLoading ? 'Loading' : <div className = {styles.container_left}>
+                {products.filter((product) => !product.food.toLowerCase().includes('bowl'))
+                .filter((product) => !product.food.toLowerCase().includes('burrito'))
+                .filter((product) => !product.food.toLowerCase().includes('taco')).map((product, key) =>
+                    <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
+                      <img src={getValue(product.itemNumber)} className={styles.img_fluid} alt={product.food} />
+                      <div className = {styles.product_info}>
+                        <h3 className = {styles.product_name}>{product.food}</h3>
+                        <p className = {styles.product_price}>${product.price}</p>
+                      </div>
+                    </button>
+                )}
+              </div>}
+            </div>
+
+            {/* Right Container */}
+            <div className={styles.container_right}>
+              <h2>Order Details</h2>
+              <div className={styles.order_details}>
+
+                {/* table */}
+                <table className={styles.order_table}>
+                    <thead className={styles.table_head}>
+                        <tr>
+                            {/* <td>#</td> */}
+                            <td className = {styles.table_desc}>Name</td>
+                            <td className = {styles.table_desc}>Price</td>
+                            <td className = {styles.table_desc}>Qty</td>
+                            <td className = {styles.table_desc}>Amount</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { cart ? cart.map((cartProduct, key) => <tr>
+                            {/* <td>{cartProduct.id}</td> */}
+                            <td className = {styles.table_desc}>{cartProduct.food}</td>
+                            <td className = {styles.table_desc}>{cartProduct.price}</td>
+                            <td className = {styles.table_desc}>{cartProduct.quantity}</td>
+                            <td className = {styles.table_desc}>{(cartProduct.totalAmount * 100 / 100).toFixed(2)}</td>
+                        </tr>)
+                        : 'No Item in Cart' }
+                    </tbody>
+                </table>
+              </div>
+
+              {/* button panel */}
+              <div className = {styles.button_panel}>
+                <h2>Total Amount: ${totalAmount.toFixed(2)}</h2>
+                <button className={styles.cancel} onClick={removeAllProductsFromCart}>Cancel</button>
+                <button className={styles.confirm}>Confirm</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -20,7 +20,10 @@ import { useWeather } from '@/hooks/useWeather';
 import WeatherBar from '@/components/WeatherBar';
 
 // this code has been peer reviewed by the manager of this Project
-
+/**
+ * 
+ * @returns a JSX elemet that returns the Manager Screen
+ */
 function Manager(): JSX.Element {
   const [selection, setSelection] = useState("x_report");
   const { weatherData, loading } = useWeather();

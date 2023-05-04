@@ -7,6 +7,10 @@ import { useWeather } from '@/hooks/useWeather';
 import WeatherBar from '@/components/WeatherBar';
 
 
+/**
+ * 
+ * @returns a JSX elemet that returns the Menu Screen
+ */
 function Menu(): JSX.Element {
 
     interface product {
@@ -24,6 +28,32 @@ function Menu(): JSX.Element {
     const [products, setProducts] = useState<product[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [totalAmount, setTotalAmount] = useState(0);
+
+    const [myMap, setMyMap] = useState(new Map([[1, "https://media.istockphoto.com/id/1317280854/photo/mexican-rice-and-chicken-burrito.jpg?s=612x612&w=is&k=20&c=yhM5t2gNIA_NJi1IwVVUcFK7OghxZyFWCS-Tz1GAMUQ="], 
+                                                [2, "https://media.istockphoto.com/id/475556736/photo/two-beef-steak-burritos.jpg?s=612x612&w=is&k=20&c=pzkVJ2V8vRSVafrJFXuRyBW7A0PJul_YG2VC0F0wKwc="],
+                                                [3, "https://media.istockphoto.com/id/117179418/photo/burrito.jpg?s=612x612&w=is&k=20&c=I6-mKVDMQjhhmOpGTaJCxwNTVKghHJKOanbIHBLeUAY="],
+                                                [4, "https://cdn.pixabay.com/photo/2018/07/01/16/00/eating-3509799_1280.jpg"],
+                                                [5, "https://cdn.pixabay.com/photo/2015/05/31/13/02/salad-791643_1280.jpg"],
+                                                [6, "https://cdn.pixabay.com/photo/2017/11/24/17/30/steak-2975331_1280.jpg"],
+                                                [7, "https://cdn.pixabay.com/photo/2022/11/28/17/07/meatballs-7622499_1280.jpg"],
+                                                [8, "https://cdn.pixabay.com/photo/2016/11/22/18/58/bowl-1850039_1280.jpg"],
+                                                [9, "https://cdn.pixabay.com/photo/2019/09/28/16/55/tacos-4511272_1280.jpg"],
+                                                [10, "https://cdn.pixabay.com/photo/2019/05/31/01/52/tacos-4241262_1280.jpg"],
+                                                [11, "https://cdn.pixabay.com/photo/2015/11/02/20/27/taco-1018962_1280.jpg"],
+                                                [12, "https://cdn.pixabay.com/photo/2016/01/20/20/50/tacos-1152345_1280.jpg"],
+                                                [13, "https://cdn.pixabay.com/photo/2016/06/12/15/56/avocado-1452326_1280.jpg"],
+                                                [14, "https://cdn.pixabay.com/photo/2020/09/02/17/49/nachos-5539014_1280.jpg"],
+                                                [15, "https://cdn.pixabay.com/photo/2017/05/30/19/30/california-2357953_1280.jpg"],
+                                                [16, "https://cdn.pixabay.com/photo/2014/09/26/19/51/drink-462776_1280.jpg"],
+                                                [17, "https://cdn.pixabay.com/photo/2016/11/19/20/55/apples-1841132_1280.jpg"],
+                                                [18, "https://cdn.pixabay.com/photo/2016/11/19/20/55/apples-1841132_1280.jpg"],
+                                                [19, "https://cdn.pixabay.com/photo/2016/11/19/20/55/apples-1841132_1280.jpg"],
+                                                [20, "https://cdn.pixabay.com/photo/2020/03/03/09/20/skittles-4898096_1280.jpg"]
+                                                ]));
+
+    function getValue(key: number) {
+      return myMap.get(key);
+    }
 
 
     // fetchProduct is an async function that shows if items are loading in (test function) but also loads in data from products 
@@ -117,111 +147,76 @@ function Menu(): JSX.Element {
 
             {/* Body */}
             <div className={styles.container}>
-                <div className={styles.container_of_containers}>
+            <div className = {styles.container_of_containers}>
 
-                    <h1>Entrees: Make your own for $10.99 or check out our options!</h1>
-
-                    {/* Bowls */}
-                    <h3> Bowls: </h3>
-
-                    {isLoading ? 'Loading' : <div className={styles.container_left}>
-                        <div className={styles.animation}>
-                            {products.map((product, key) =>
-
-                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
-                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                                    <div className={styles.product_info}>
-                                        <p className={styles.product_name}>{product.food}</p>
-                                        <p className={styles.product_price}>${product.price}</p>
-                                    </div>
-                                </button>
-                            )}
-                        </div>
+                <h1>Entrees: Make your own for $10.99 or check out our options!</h1>
+              
+                {/* Bowls */}
+                <h3> Bowls: </h3> 
+                
+                    {isLoading ? 'Loading' : <div className = {styles.container_left}> 
+                                            <div className = {styles.animation}>
+                    {products.filter((product) => product.food.toLowerCase().includes('bowl')).map((product, key) =>
+                    
+                        <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
+                            <img src={getValue(product.itemNumber)} className={styles.img_fluid} alt={product.food} />
+                            <div className = {styles.product_info}>
+                                <p className = {styles.product_name}>{product.food}</p>
+                                <p className = {styles.product_price}>${product.price}</p>
+                            </div>
+                        </button>
+                    )}
+                    </div>
                     </div>}
+                
 
-
-                    {/* Burritos */}
-                    <h3> Burritos </h3>
-                    {isLoading ? 'Loading' : <div className={styles.container_left}>
-                        <div className={styles.animation}>
-                            {products.map((product, key) =>
-                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
-                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                                    <div className={styles.product_info}>
-                                        <p className={styles.product_name}>{product.food}</p>
-                                        <p className={styles.product_price}>${product.price}</p>
-                                    </div>
-                                </button>
-                            )}
+                {/* Burritos */}
+                <h3> Burritos </h3>
+                {isLoading ? 'Loading' : <div className = {styles.container_left}>
+                                        <div className = {styles.animation}>
+                {products.filter((product) => product.food.toLowerCase().includes('burrito')).map((product, key) =>
+                    <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
+                        <img src={getValue(product.itemNumber)} className={styles.img_fluid} alt={product.food} />
+                        <div className = {styles.product_info}>
+                            <p className = {styles.product_name}>{product.food}</p>
+                            <p className = {styles.product_price}>${product.price}</p>
                         </div>
-                    </div>}
+                    </button>
+                    )}
+                </div>
+                </div>}
 
-                    {/* Tacos */}
-                    <h3> Tacos </h3>
-                    {isLoading ? 'Loading' : <div className={styles.container_left}>
-                        <div className={styles.animation}>
-                            {products.map((product, key) =>
-                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
-                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                                    <div className={styles.product_info}>
-                                        <p className={styles.product_name}>{product.food}</p>
-                                        <p className={styles.product_price}>${product.price}</p>
-                                    </div>
-                                </button>
-                            )}
+                {/* Tacos */}
+                <h3> Tacos </h3>
+                {isLoading ? 'Loading' : <div className = {styles.container_left}>
+                                        <div className = {styles.animation}>
+                {products.filter((product) => product.food.toLowerCase().includes('taco')).map((product, key) =>
+                    <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
+                        <img src={getValue(product.itemNumber)} className={styles.img_fluid} alt={product.food} />
+                        <div className = {styles.product_info}>
+                            <p className = {styles.product_name}>{product.food}</p>
+                            <p className = {styles.product_price}>${product.price}</p>
                         </div>
-                    </div>}
+                    </button>
+                )}
+                </div>
+                </div>}
 
-                    {/* Other */}
-                    <h1> Sides </h1>
-                    {isLoading ? 'Loading' : <div className={styles.container_left}>
-                        <div className={styles.animation}>
-                            {products.map((product, key) =>
-                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
-                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                                    <div className={styles.product_info}>
-                                        <p className={styles.product_name}>{product.food}</p>
-                                        <p className={styles.product_price}>${product.price}</p>
-                                    </div>
-                                </button>
-                            )}
+                {/* Other */}
+                <h1> Sides </h1>
+                {isLoading ? 'Loading' : <div className = {styles.container_left}>
+                                        <div className = {styles.animation}>
+                {products.filter((product) => !product.food.toLowerCase().includes('bowl'))
+                .filter((product) => !product.food.toLowerCase().includes('burrito'))
+                .filter((product) => !product.food.toLowerCase().includes('taco')).map((product, key) =>                    <button key = {key} className = {styles.product_button} onClick={()=>addProductToCart(product)}>
+                        <img src={getValue(product.itemNumber)} className= {styles.img_fluid} alt={product.food} />
+                        <div className = {styles.product_info}>
+                            <p className = {styles.product_name}>{product.food}</p>
+                            <p className = {styles.product_price}>${product.price}</p>
                         </div>
                     </div>}
                 </div>
 
-                <div className={styles.container_of_containers}>
-                    <h1>Other</h1>
-                    {isLoading ? 'Loading' : <div className={styles.container_left}>
-                        <div className={styles.animation}>
-                            {products.map((product, key) =>
-                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
-                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                                    <div className={styles.product_info}>
-                                        <p className={styles.product_name}>{product.food}</p>
-                                        <p className={styles.product_price}>${product.price}</p>
-                                    </div>
-                                </button>
-                            )}
-                        </div>
-                    </div>}
-                </div>
-
-                <div className={styles.container_of_containers}>
-                    <h1>Extras</h1>
-                    {isLoading ? 'Loading' : <div className={styles.container_left}>
-                        <div className={styles.animation}>
-                            {products.map((product, key) =>
-                                <button key={key} className={styles.product_button} onClick={() => addProductToCart(product)}>
-                                    <img src={product.image} className={styles.img_fluid} alt={product.food} />
-                                    <div className={styles.product_info}>
-                                        <p className={styles.product_name}>{product.food}</p>
-                                        <p className={styles.product_price}>${product.price}</p>
-                                    </div>
-                                </button>
-                            )}
-                        </div>
-                    </div>}
-                </div>
 
                 {/* Right Container */}
                 <div className={styles.container_right}>

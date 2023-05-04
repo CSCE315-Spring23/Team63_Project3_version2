@@ -102,15 +102,14 @@
 }
 
 .animation {
-    width: 4800px;
     display: grid;
     gap: 1rem;
     grid-auto-flow: column;
     grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));
     /* animation properties */
-    -moz-animation: my-animation linear 30s infinite;
-    -webkit-animation: my-animation linear 30s infinite;
-    animation: my-animation 30s linear infinite;
+    -moz-animation: my-animation linear 15s infinite;
+    -webkit-animation: my-animation linear 15s infinite;
+    animation: my-animation 15s linear infinite;
 }
 
 /* for Firefox */
