@@ -1,12 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #65706b
 }
 
+body::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+
+body::-webkit-scrollbar-track {
+  background: none;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #c8d6d8;
+  border-radius: 8px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
 
 nav {
   display: flex;
